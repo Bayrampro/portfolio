@@ -1,6 +1,6 @@
-import * as THREE from "./assets/vendor/three/build/three.module.js";
-import { OrbitControls } from "./assets/vendor/three/examples/jsm/controls/OrbitControls.js";
-import { GLTFLoader } from "./assets/vendor/three/examples/jsm/loaders/GLTFLoader.js";
+import * as THREE from "./assets/vendor/three/build/three.module.js?v=1";
+import { OrbitControls } from "./assets/vendor/three/examples/jsm/controls/OrbitControls.js?v=1";
+import { GLTFLoader } from "./assets/vendor/three/examples/jsm/loaders/GLTFLoader.js?v=1";
 
 const canvas = document.getElementById("pcModelCanvas");
 const loaderEl = document.getElementById("pcModelLoader");
@@ -88,7 +88,7 @@ if (!canvas || !section) {
 
     const gltfLoader = new GLTFLoader(manager);
     gltfLoader.load(
-      "assets/models/gaming_desktop_pc/scene.gltf",
+      "assets/models/gaming_desktop_pc/scene.gltf?v=1",
       (gltf) => {
         const model = gltf.scene;
         model.position.set(0.25, -2.25, -1.5);
