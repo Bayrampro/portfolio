@@ -76,6 +76,18 @@
         </div>
     </section>
 
+    <!-- 3D Setup Section -->
+    <section id="pc-setup">
+        <div class="container">
+            <h2>Interactive 3D Setup</h2>
+            <p class="section-subtitle">Drag to explore our workstation model powered by Three.js</p>
+            <div class="pc-canvas-wrap">
+                <canvas id="pcModelCanvas" aria-label="Interactive 3D computer setup model"></canvas>
+                <div id="pcModelLoader" class="pc-canvas-loader">Loading 3D model...</div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="about">
         <div class="container">
@@ -728,9 +740,25 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Abhishek Agrawal. All rights reserved.</p>
+        <p>&copy; 2026 BaDi Systems. All rights reserved.</p>
     </footer>
 
+    <script>
+        globalThis.__pcModelBooted = false;
+        globalThis.__pcModelLoaded = false;
+
+        setTimeout(() => {
+            const loader = document.getElementById('pcModelLoader');
+            if (!loader || globalThis.__pcModelLoaded) return;
+
+            if (!globalThis.__pcModelBooted) {
+                loader.textContent = '3D module failed to initialize. Please disable strict adblock/VPN and refresh.';
+            } else if (!loader.classList.contains('hidden')) {
+                loader.textContent = '3D model is still loading... please wait a few seconds.';
+            }
+        }, 12000);
+    </script>
+    <script type="module" src="three-model.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

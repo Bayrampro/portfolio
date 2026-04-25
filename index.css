@@ -260,6 +260,59 @@
             max-width: 500px;
         }
 
+        /* 3D Setup Section */
+        #pc-setup {
+            background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+        }
+
+        #pc-setup .section-subtitle {
+            max-width: 620px;
+        }
+
+        .pc-canvas-wrap {
+            position: relative;
+            width: 100%;
+            height: clamp(320px, 56vw, 620px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 14px;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.45) 70%);
+            overflow: hidden;
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+        }
+
+        #pcModelCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            cursor: grab;
+        }
+
+        #pcModelCanvas:active {
+            cursor: grabbing;
+        }
+
+        .pc-canvas-loader {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-accent-gold);
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            font-size: 0.95rem;
+            background: rgba(5, 7, 10, 0.35);
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+            z-index: 3;
+        }
+
+        .pc-canvas-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
         /* About Section */
         #about {
             background: linear-gradient(180deg, var(--color-secondary) 0%, rgba(13, 17, 23, 0.8) 100%);
@@ -997,6 +1050,11 @@
             .projects-grid {
                 grid-template-columns: 1fr;
             }
+
+            .pc-canvas-wrap {
+                height: clamp(260px, 68vw, 420px);
+                border-radius: 12px;
+            }
         }
 
         @media (max-width: 420px) {
@@ -1006,6 +1064,10 @@
 
             .contact-form {
                 padding: 22px 16px;
+            }
+
+            .pc-canvas-wrap {
+                height: 250px;
             }
         }
 
