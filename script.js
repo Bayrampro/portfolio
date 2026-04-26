@@ -1,4 +1,5 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+const i18n = globalThis.BaDiI18n;
 
 // ============================================
 // AUDIO - PREMIUM CLICK SOUND (BASE64)
@@ -162,18 +163,23 @@ if (canvas) {
 // ============================================
 // TYPEWRITER EFFECT
 // ============================================
-const phrases = [
+const defaultPhrases = [
     'Cross-Platform Product Engineering.',
     'Flutter \u00b7 Jetpack Compose \u00b7 SwiftUI \u00b7 Jaspr.',
     'Go \u00b7 PostgreSQL \u00b7 Docker.',
     'Student support: guidance on essays, coursework, thesis projects, lab reports, and more.'
 ];
+let phrases = (i18n && i18n.getPhrases('index').length) ? i18n.getPhrases('index') : defaultPhrases;
 
 let phraseIndex = 0;
 let charIndex = 0;
 const typewriterElement = document.querySelector('.typewriter-text');
 
 const type = () => {
+    if (!typewriterElement || phrases.length === 0) {
+        return;
+    }
+
     const currentPhrase = phrases[phraseIndex];
 
     if (charIndex < currentPhrase.length) {
@@ -190,6 +196,16 @@ const type = () => {
     }
 };
 type();
+
+globalThis.addEventListener('badi:languagechange', () => {
+    const nextPhrases = (i18n && i18n.getPhrases('index').length) ? i18n.getPhrases('index') : defaultPhrases;
+    phrases = nextPhrases;
+    phraseIndex = 0;
+    charIndex = 0;
+    if (typewriterElement) {
+        typewriterElement.textContent = '';
+    }
+});
 
 // ============================================
 // BUTTON RIPPLE CLICK EFFECT (Dynamic from Mouse Coordinates)
@@ -403,11 +419,16 @@ form.addEventListener('submit', (e) => {
     const emailVal = document.getElementById('email').value.trim();
     const message = document.getElementById('message').value.trim();
 
-    const subject = encodeURIComponent('Portfolio Contact from ' + name);
+    const subjectPrefix = (i18n && i18n.t('common.mail.subjectPrefix')) || 'Portfolio Contact from';
+    const mailNameLabel = (i18n && i18n.t('common.mail.name')) || 'Name';
+    const mailEmailLabel = (i18n && i18n.t('common.mail.email')) || 'Email';
+    const mailMessageLabel = (i18n && i18n.t('common.mail.message')) || 'Message';
+
+    const subject = encodeURIComponent(subjectPrefix + ' ' + name);
     const body = encodeURIComponent(
-        'Name: ' + name + '\n' +
-        'Email: ' + emailVal + '\n\n' +
-        'Message:\n' + message
+        mailNameLabel + ': ' + name + '\n' +
+        mailEmailLabel + ': ' + emailVal + '\n\n' +
+        mailMessageLabel + ':\n' + message
     );
     const mailtoUrl = 'mailto:annakurbanov02@mail.ru?subject=' + subject + '&body=' + body;
 
@@ -437,7 +458,7 @@ form.addEventListener('submit', (e) => {
                 form.style.display = 'block';
                 successDiv.classList.remove('active');
                 button.disabled = false;
-                button.textContent = 'Send Message';
+                button.textContent = (i18n && i18n.t('common.contact.send')) || 'Send Message';
 
                 gsap.fromTo(form,
                     { opacity: 0, y: -20 },

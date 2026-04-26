@@ -1,0 +1,1295 @@
+(() => {
+    const STORAGE_KEY = 'badi-lang';
+    const SUPPORTED_LANGS = ['en', 'ru', 'tk'];
+    const DEFAULT_LANG = 'en';
+    let businessProjectDefaults = null;
+
+    const BUSINESS_PROJECT_TRANSLATIONS = {
+        ru: [
+            {
+                title: 'KAYAK: Авиабилеты, Отели и Авто',
+                description: 'Приложение для путешествий: сравнение и бронирование авиабилетов, отелей и аренды авто с умными фильтрами, ценовыми подсказками и инструментами планирования.',
+                actions: [''],
+                problemTitle: 'Проблема',
+                problemBody: 'Нужно было обеспечить быстрый и надежный опыт бронирования авиабилетов, отелей и авто на мобильных устройствах, сохраняя плавность поиска, фильтрации и оформления в условиях реальной нагрузки.',
+                architectureTitle: 'Архитектура',
+                architectureItems: [
+                    'Мобильное приложение на Flutter с модульной feature-архитектурой',
+                    'Backend-сервисы на Go с REST API',
+                    'PostgreSQL для структурированных данных о поездках и бронированиях',
+                    'Контейнеризация сервисов в Docker для стабильных окружений',
+                    'Интеграции с провайдерами авиабилетов, отелей и авто'
+                ],
+                challengesTitle: 'Решенные задачи',
+                challengesItems: [
+                    'Высокий объем поисковых запросов — оптимизированы Go-обработчики и SQL-запросы',
+                    'Большие списки результатов на мобильных — внедрены пагинация и lazy loading во Flutter',
+                    'Агрегация данных из разных источников — унифицированы контракты ответов провайдеров'
+                ],
+                learnedTitle: 'Чему мы научились',
+                learnedItems: [
+                    'Строить production-уровень UX на Flutter',
+                    'Проектировать поддерживаемые и быстрые API на Go',
+                    'Оптимизировать индексы и запросы PostgreSQL для поисковых нагрузок',
+                    'Выстраивать container-first процессы поставки и деплоя через Docker'
+                ]
+            },
+            {
+                title: 'Quotes & Video Maker Editor',
+                description: 'Мобильное приложение для создания цитат и коротких видео: шаблоны, стилизация текста, медиатулзы и экспорт для соцсетей.',
+                actions: ['Google Play'],
+                problemTitle: 'Проблема',
+                problemBody: 'Пользователям нужен был простой способ быстро создавать качественные визуалы с цитатами и короткие ролики без сложного софта и длинного экспорта.',
+                architectureTitle: 'Архитектура',
+                architectureItems: [
+                    'Flutter-приложение с переиспользуемыми редакторными компонентами и template-driven UI',
+                    'Go API для метаданных ассетов, профилей пользователей и лент контента',
+                    'Пайплайн обработки медиа для рендера, сжатия и экспорта',
+                    'Интеграция облачного хранилища для шаблонов, медиа и сгенерированных материалов'
+                ],
+                challengesTitle: 'Решенные задачи',
+                challengesItems: [
+                    'Медленный рендер на средних устройствах — оптимизирована генерация кадров и кодирование',
+                    'Нестабильные результаты текста/макетов — внедрены строгие ограничения шаблонов',
+                    'Слишком большие export-файлы — добавлены адаптивные пресеты сжатия под платформы'
+                ],
+                learnedTitle: 'Чему мы научились',
+                learnedItems: [
+                    'Делать creator-oriented UX, который остается быстрым при тяжелых медиа-операциях',
+                    'Практически проектировать backend на Go для mobile-first контентных продуктов',
+                    'Балансировать качество, скорость и размер файла при мобильном видео-экспорте',
+                    'Строить переиспользуемые шаблонные системы под рост контентных категорий'
+                ]
+            },
+            {
+                title: 'Happy Birthday Wishes with AI',
+                description: 'AI-приложение для поздравлений с днем рождения: персонализированные тексты, выбор тона и языка, быстрый шэринг красиво оформленных сообщений.',
+                actions: ['Google Play'],
+                problemTitle: 'Проблема',
+                problemBody: 'Людям нужны содержательные поздравления, но часто сложно быстро придумать личный текст для разных отношений, тонов и языков.',
+                architectureTitle: 'Архитектура',
+                architectureItems: [
+                    'Jetpack Compose UI с модульными экранами для промптов, результатов и шэринга',
+                    'Go API для генерации, истории пользователей и шаблонов контента',
+                    'Слой оркестрации промптов по тону, языку и типу повода',
+                    'Кэширование и rate-контроль для стабильной работы при пиковом трафике'
+                ],
+                challengesTitle: 'Решенные задачи',
+                challengesItems: [
+                    'Повторяющиеся AI-ответы — улучшены prompt-стратегии и постобработка',
+                    'Медленная генерация в пике — добавлены очереди и оптимизированы Go-обработчики',
+                    'Разное качество по языкам — внедрены locale-specific правила шаблонов'
+                ],
+                learnedTitle: 'Чему мы научились',
+                learnedItems: [
+                    'Проектировать conversion-oriented AI UX на Jetpack Compose',
+                    'Строить устойчивые генерационные пайплайны на Go',
+                    'Балансировать персонализацию, задержку и стабильность качества на масштабе',
+                    'Делать social-sharing фичи, повышающие retention и virality'
+                ]
+            },
+            {
+                title: 'Alumnin Contact Book',
+                description: 'Сетевое сообщество для выпускников: поиск верифицированных контактов, организация профессиональных кругов и структурная коммуникация между потоками, факультетами и интересами.',
+                actions: ['Google Play', 'App Store'],
+                problemTitle: 'Проблема',
+                problemBody: 'Сообщества выпускников теряют связи со временем, а обычные мессенджеры плохо подходят для верифицированных профилей, поиска по справочнику и долгосрочного нетворкинга.',
+                architectureTitle: 'Архитектура',
+                architectureItems: [
+                    'Flutter-клиент с модульными фичами чата, справочника и профилей',
+                    'Go-микросервисы для аутентификации, индексации контактов и messaging API',
+                    'Role-based модель доступа для приватных групп и разделов только для верифицированных выпускников',
+                    'Поисковый слой для быстрого поиска по потоку, компании, роли и локации'
+                ],
+                challengesTitle: 'Решенные задачи',
+                challengesItems: [
+                    'Дубли и устаревшие контакты — внедрены верификация профилей и merge-потоки',
+                    'Низкая находка релевантных выпускников — добавлены smart-фильтры и ранжирование',
+                    'Перегрузка уведомлениями в активных группах — внедрены гибкие настройки уведомлений'
+                ],
+                learnedTitle: 'Чему мы научились',
+                learnedItems: [
+                    'Проектировать мобильные networking-продукты с балансом privacy и discoverability',
+                    'Строить масштабируемые directory/search API на Go',
+                    'Повышать retention через onboarding, заполнение профиля и рекомендации',
+                    'Структурировать коммуникационные фичи под социальные и профессиональные сценарии'
+                ]
+            },
+            {
+                title: 'Gerekli',
+                description: 'Мультивендорный маркетплейс для поиска товаров, просмотра категорий и оформления заказов в чистом mobile-first интерфейсе.',
+                actions: ['Google Play', 'App Store'],
+                problemTitle: 'Проблема',
+                problemBody: 'Покупателям нужно единое мобильное приложение для товаров от разных продавцов с консистентным UX, а продавцам — лучшая видимость и удобный поиск товаров.',
+                architectureTitle: 'Архитектура',
+                architectureItems: [
+                    'Flutter-приложение с модульными экранами каталога, карточки товара и checkout',
+                    'State-driven UI-подходы для предсказуемого рендера и навигации',
+                    'Переиспользуемые виджеты карточек продавцов, товарных сеток и фильтров',
+                    'Кроссплатформенная поставка на Android и iOS из единой кодовой базы'
+                ],
+                challengesTitle: 'Решенные задачи',
+                challengesItems: [
+                    'Большие каталоги тормозили прокрутку — оптимизированы списки и загрузка изображений',
+                    'Сложные комбинации фильтров — улучшены состояния фильтров и сценарии сброса',
+                    'Нестабильные макеты на разных устройствах — улучшены adaptive-правила и отступы'
+                ],
+                learnedTitle: 'Чему мы научились',
+                learnedItems: [
+                    'Масштабировать Flutter UI-архитектуру для e-commerce сценариев',
+                    'Проектировать переиспользуемые компоненты для быстрой итерации фич',
+                    'Балансировать производительность и визуальную консистентность на насыщенных экранах',
+                    'Повышать мобильную конверсию через более четкую информационную иерархию'
+                ]
+            }
+        ],
+        tk: [
+            {
+                title: 'KAYAK: Uçuşlar, Myhmanhanalar we Awtoulaglar',
+                description: 'Uçuşlary, myhmanhanalary we awtoulag kärendesini deňeşdirip bron etmäge mümkinçilik berýän syýahat programmasy.',
+                actions: [''],
+                problemTitle: 'Mesele',
+                problemBody: 'Mobil enjamlarda uçuş, myhmanhana we awtoulag bronlamak üçin çalt hem ygtybarly tejribe döretmek, real trafikte gözleg we bron ädimlerini durnukly saklamak zerurdy.',
+                architectureTitle: 'Arhitektura',
+                architectureItems: [
+                    'Flutter-de modully mobile arhitektura',
+                    'REST API berýän Go backend hyzmatlary',
+                    'Syýahat we bron maglumatlary üçin PostgreSQL',
+                    'Durnukly gurşawlar üçin Docker konteýnerleşdirilen hyzmatlar',
+                    'Uçuş, myhmanhana we awtoulag üpjün edijileri bilen integrasiýa'
+                ],
+                challengesTitle: 'Çözgüt berlen kynçylyklar',
+                challengesItems: [
+                    'Gözleg soraglarynyň ýokary mukdary — Go handler-leri we SQL soraglary optimizirlendi',
+                    'Mobilde uly netije sanawlary — Flutter-de pagination we lazy loading goşuldy',
+                    'Köp çeşmeden maglumat birleşdirmek — üpjün ediji jogap kontraktlary birleşdirildi'
+                ],
+                learnedTitle: 'Öwrenen zatlarymyz',
+                learnedItems: [
+                    'Flutter bilen production derejeli kross-platforma UX gurmak',
+                    'Go-da goldanylýan we öndürijilikli API taslamak',
+                    'Gözleg üçin PostgreSQL indeks we sorag optimizasiýasy',
+                    'Docker arkaly container-first goýberiş we deploy prosesi'
+                ]
+            },
+            {
+                title: 'Quotes & Video Maker Editor',
+                description: 'Şablonlar, tekst stilleri we media gurallary bilen sitata postlaryny we gysga wideolary döretmek üçin mobil programmasy.',
+                actions: ['Google Play'],
+                problemTitle: 'Mesele',
+                problemBody: 'Ulanyjylara çylşyrymly programma üpjünçiligi bolmazdan, sitata wizualyny we gysga wideolary çalt taýýarlamak üçin ýönekeý ýol gerekdi.',
+                architectureTitle: 'Arhitektura',
+                architectureItems: [
+                    'Gaýtadan ulanylýan redaktor komponentleri bilen Flutter proýekt',
+                    'Aktiw metadata, profil we kontent feedleri üçin Go API',
+                    'Render, gysyş we eksport üçin media işleme pipeline',
+                    'Şablonlar we döredilen materiallar üçin bulut saklaýyş integrasiýasy'
+                ],
+                challengesTitle: 'Çözgüt berlen kynçylyklar',
+                challengesItems: [
+                    'Orta enjamlarda haýal render — frame we kodlama akymy optimizirlendi',
+                    'Şablonlarda tekst/layout birmeňzeş däl — berk şablon çäklendirmeleri girizildi',
+                    'Eksport faýllary uly — platforma görä adaptasiýaly gysyş presetleri goşuldy'
+                ],
+                learnedTitle: 'Öwrenen zatlarymyz',
+                learnedItems: [
+                    'Agyr media amallarynda hem çalt galýan creator UX gurmak',
+                    'Mobile-first kontent önümleri üçin Go backend dizaýny',
+                    'Mobil wideo eksportynda hil, tizlik we göwrümi deňagramlaşdyrmak',
+                    'Täze kategoriýalara giňeýän gaýtadan ulanylýan şablon ulgamlaryny gurmak'
+                ]
+            },
+            {
+                title: 'Happy Birthday Wishes with AI',
+                description: 'AI arkaly doglan gün gutlaglaryny şahsylaşdyryp döretmäge, ton we dili saýlamaga we çalt paýlaşmaga mümkinçilik berýän programmasy.',
+                actions: ['Google Play'],
+                problemTitle: 'Mesele',
+                problemBody: 'Adamlara manyly gutlag gerek bolýar, emma dürli gatnaşyklara we dillere laýyk şahsy tekst tiz ýazmak köplenç kyn bolýar.',
+                architectureTitle: 'Arhitektura',
+                architectureItems: [
+                    'Prompt, netije we paýlaşma üçin modully Jetpack Compose UI',
+                    'Generasiýa soraglary we ulanyjy taryhy üçin Go API',
+                    'Ton, dil we ýagdaý boýunça prompt orkestrasiýa gatlagy',
+                    'Pik trafikte durnuklylyk üçin cache we rate-control'
+                ],
+                challengesTitle: 'Çözgüt berlen kynçylyklar',
+                challengesItems: [
+                    'Gaýtalanýan AI netijeleri — prompt strategiýasy we post-processing gowulandyryldy',
+                    'Pikde haýal generasiýa — nobat ulgamy we Go handler optimizasiýasy goşuldy',
+                    'Dile görä hiliň tapawudy — locale-specific şablon düzgünleri girizildi'
+                ],
+                learnedTitle: 'Öwrenen zatlarymyz',
+                learnedItems: [
+                    'Jetpack Compose-da conversion-oriented AI UX dizaýny',
+                    'Go hyzmatlarynda durnukly generasiýa pipeline gurmak',
+                    'Şahsylaşdyrma, latency we netijäniň durnuklylygyny deňagramlaşdyrmak',
+                    'Retention we virality artdyrýan social-sharing funksiýalaryny goýbermek'
+                ]
+            },
+            {
+                title: 'Alumnin Contact Book',
+                description: 'Okuwçylar üçin onlaýn community: tassyklanan gatnaşyklary tapmak, hünärmen toparlaryny guramak we ugurlaryň, fakultetleriň arasynda aragatnaşygy ýeňilleşdirmek.',
+                actions: ['Google Play', 'App Store'],
+                problemTitle: 'Mesele',
+                problemBody: 'Uçurymlar wagtyň geçmegi bilen aragatnaşygyny ýitirýär, adaty messengerler bolsa tassyklanan profil we uzak möhletli networking üçin amatly däl.',
+                architectureTitle: 'Arhitektura',
+                architectureItems: [
+                    'Chat, directory we profil üçin modully Flutter klient',
+                    'Auth, indekslemek we messaging API üçin Go mikrohyzmatlar',
+                    'Private toparlar we tassyklanan uçurymlar üçin role-based giriş modeli',
+                    'Akym, kompaniýa, rol we ýerleşiş boýunça çalt gözleg gatlagy'
+                ],
+                challengesTitle: 'Çözgüt berlen kynçylyklar',
+                challengesItems: [
+                    'Gaýtalanýan we köne kontaktlar — profil tassyklama we birleşdirme akymlary goşuldy',
+                    'Degişli uçurymlary tapmak pesdi — akylly filtr we reýting goşuldy',
+                    'Işjeň toparlarda bildiriş köpdi — çeýe bildiriş sazlamalary girizildi'
+                ],
+                learnedTitle: 'Öwrenen zatlarymyz',
+                learnedItems: [
+                    'Privacy bilen discoverability arasynda deňagramly mobil networking önüm dizaýny',
+                    'Go-da giňelýän directory we search API gurmak',
+                    'Onboarding, profil doldurma we teklip akymlary bilen retention ýokarlandyrmak',
+                    'Sosial we professional ulanylyş üçin aragatnaşyk funksiýalaryny gurluşdyrmak'
+                ]
+            },
+            {
+                title: 'Gerekli',
+                description: 'Köp satyjaly marketplace goşundysy: harytlary tapmak, kategoriýalary gezmek we sargyt etmek üçin mobile-first programmasy.',
+                actions: ['Google Play', 'App Store'],
+                problemTitle: 'Mesele',
+                problemBody: 'Alyjylara dürli satyjylaryň harytlary üçin bitewi mobil goşundy, satyjylara bolsa has gowy görünürlik we tapylmak gerekdi.',
+                architectureTitle: 'Arhitektura',
+                architectureItems: [
+                    'Katalog, önüm we checkout üçin modully Flutter ekranlary',
+                    'Öňünden çaklap bolýan render we nawigasiýa üçin state-driven UI',
+                    'Satyjy kartlary, haryt gridleri we filtrler üçin gaýtadan ulanylýan widgetler',
+                    'Bir kod bazasyndan Android we iOS üçin kross-platforma goýberiş'
+                ],
+                challengesTitle: 'Çözgüt berlen kynçylyklar',
+                challengesItems: [
+                    'Uly kataloglar scroll-y haýallatdy — sanaw renderi we surat ýüklemesi optimizirlendi',
+                    'Çylşyrymly filtr kombinasiýalary — filtr ýagdaýlary we reset akymy düşnükli edildi',
+                    'Enjamlarda layout birmeňzeş däldi — responsive düzgünler we aralyklar gowulandyryldy'
+                ],
+                learnedTitle: 'Öwrenen zatlarymyz',
+                learnedItems: [
+                    'Commerce görnüşli ekranlar üçin Flutter UI arhitekturasyny giňeltmek',
+                    'Funksiýalary çalt iterasiýa etmek üçin gaýtadan ulanylýan komponentler taslamak',
+                    'Önüm agyr ekranlarda öndürijilik bilen wizual yzygiderliligi deňagramlaşdyrmak',
+                    'Has düşnükli maglumat ierarhiýasy arkaly mobil konwersiýany ýokarlandyrmak'
+                ]
+            }
+        ]
+    };
+
+    const COPY = {
+        en: {
+            common: {
+                navToggleAria: 'Toggle navigation menu',
+                switcherAria: 'Language switcher',
+                contact: {
+                    heading: "Let's Connect",
+                    nameLabel: 'Your Name',
+                    emailLabel: 'Email Address',
+                    messageLabel: 'Your Message',
+                    send: 'Send Message',
+                    fallbackPrefix: 'If the button does not open your mail app, use',
+                    successTitle: 'Message Sent Successfully!',
+                    successSubtitle: "Thank you for reaching out. I'll get back to you shortly."
+                },
+                mail: {
+                    subjectPrefix: 'Portfolio Contact from',
+                    name: 'Name',
+                    email: 'Email',
+                    message: 'Message'
+                }
+            },
+            index: {
+                meta: {
+                    title: 'BaDi Systems | Cross-Platform Product Engineering',
+                    description: 'BaDi Systems builds cross-platform products with Flutter, Jetpack Compose, Jaspr, Go, PostgreSQL, and Docker.',
+                    ogTitle: 'BaDi Systems | Cross-Platform Product Engineering',
+                    ogDescription: 'Mobile, web, and backend engineering with a modern product stack.'
+                },
+                nav: {
+                    home: 'Home',
+                    students: 'Students',
+                    business: 'Business',
+                    about: 'About',
+                    contact: 'Contact'
+                },
+                hero: {
+                    greeting: "we're",
+                    subtitle: 'Cross-Platform Product Engineering · Mobile · Web · Backend',
+                    cta: "Let's Connect",
+                    resume: 'Download Resume'
+                },
+                loader: {
+                    loading: 'Loading 3D model...',
+                    fail: '3D module failed to initialize. Please disable strict adblock/VPN and refresh.',
+                    slow: '3D model is still loading... please wait a few seconds.'
+                },
+                about: {
+                    title: 'About Us',
+                    subtitle: 'Building reliable products across mobile, web, and backend',
+                    p1: 'We are <span class="about-highlight">BaDi Systems</span>, a product engineering team focused on delivering fast, scalable digital products for startups and growing businesses.',
+                    p2: 'Our frontend stack is built for cross-platform delivery with <span class="about-highlight">Flutter, Jetpack Compose, SwiftUI, and Jaspr</span>, allowing us to ship consistent user experiences across iOS, Android, and web.',
+                    p3: 'On the backend, we build robust services using <span class="about-highlight">Go, PostgreSQL, and Docker</span>, with an emphasis on clean architecture, performance, and reliable production deployments.',
+                    p4: 'We also support students through <span class="about-highlight">mentoring, consultations, and structured guidance</span> for essays, coursework, thesis projects, and lab assignments, helping them understand requirements and deliver stronger academic results.'
+                },
+                footer: '\u00a9 2026 BaDi Systems. All rights reserved.',
+                typewriter: [
+                    'Cross-Platform Product Engineering.',
+                    'Flutter · Jetpack Compose · SwiftUI · Jaspr.',
+                    'Go · PostgreSQL · Docker.',
+                    'Student support: guidance on essays, coursework, thesis projects, lab reports, and more.'
+                ]
+            },
+            students: {
+                meta: {
+                    title: 'For Students | BaDi Systems',
+                    description: 'For Students: support for essays, theses, lab works, and coursework projects.',
+                    ogTitle: 'For Students | BaDi Systems',
+                    ogDescription: 'Student support: essays, theses, lab works, coursework projects, and more.'
+                },
+                nav: {
+                    home: 'Home',
+                    business: 'Business',
+                    services: 'Services',
+                    universities: 'Universities',
+                    achievements: 'Achievements',
+                    contact: 'Contact'
+                },
+                hero: {
+                    title: 'For Students',
+                    subtitle: 'Student support and guidance for academic work'
+                },
+                services: {
+                    title: 'Services',
+                    subtitle: 'Student support services and pricing',
+                    thesis: 'Thesis',
+                    thesisPrice: 'from 5 000 ₽',
+                    coursework: 'Coursework Project',
+                    courseworkPrice: 'from 1 000 ₽',
+                    labs: 'Lab / Practical Assignments',
+                    labsPrice: 'from 200 ₽',
+                    presentations: 'Interactive Presentations',
+                    presentationsPrice: 'from 300 ₽',
+                    essay: 'Essay',
+                    essayPrice: 'from 350 ₽',
+                    reports: 'Reports',
+                    reportsPrice: 'from 300 ₽',
+                    internship: 'Internship Practice Reports',
+                    internshipPrice: 'from 1 000 ₽'
+                },
+                universities: {
+                    title: 'Universities We Supported',
+                    subtitle: 'We have helped students from leading Russian universities complete academic projects and course assignments.',
+                    names: [
+                        'AGU',
+                        'Belgorod State University',
+                        'ITMO University',
+                        'KBGU',
+                        'KChGU',
+                        'Kazan Federal University',
+                        'Kuban State University',
+                        'Lomonosov MSU',
+                        'RUDN University',
+                        'SKFU (NCFU)',
+                        'Saint Petersburg State University',
+                        'Voronezh State University',
+                        'Volgograd State University'
+                    ]
+                },
+                achievements: {
+                    title: 'Achievements',
+                    subtitle: 'Academic impact backed by real delivery metrics',
+                    a1Title: '1,000+ Student Works Delivered',
+                    a1Body: 'We helped students complete <strong>420+ essays</strong>, <strong>330+ lab assignments</strong>, <strong>190+ coursework projects</strong>, and <strong>85+ diploma theses</strong> with strong structure, research quality, and on-time delivery.',
+                    a1Link: 'Discuss Your Task →',
+                    a2Title: '95% Top-Grade Success Rate',
+                    a2Body: '<strong>95%</strong> of submitted works were graded as <strong>5 / A-level</strong>. Our guidance focuses on clear methodology, correct formatting, and defense-ready materials that help students present confidently.'
+                },
+                typewriter: [
+                    'Essays.',
+                    'Diploma theses.',
+                    'Lab reports.',
+                    'Coursework projects.',
+                    'And much more.'
+                ]
+            },
+            business: {
+                meta: {
+                    title: 'For Business | BaDi Systems',
+                    description: 'For Business: digital solutions for growth, automation, and scale.',
+                    ogTitle: 'For Business | BaDi Systems',
+                    ogDescription: 'Business solutions: automation, CRM, web/mobile platforms, integrations, and analytics.'
+                },
+                nav: {
+                    home: 'Home',
+                    students: 'Students',
+                    skills: 'Skills',
+                    projects: 'Projects',
+                    experience: 'Experience',
+                    contact: 'Contact'
+                },
+                hero: {
+                    title: 'For Business',
+                    subtitle: 'Business solutions for growth, automation, and scale'
+                },
+                skills: {
+                    title: 'Technical Skills',
+                    subtitle: 'Tools and technologies we work with',
+                    frontend: 'Frontend',
+                    backend: 'Backend',
+                    databases: 'Databases',
+                    cloud: 'Cloud / Tools',
+                    concepts: 'Concepts'
+                },
+                projects: {
+                    title: 'Featured Projects',
+                    subtitle: 'Real products, real deployments'
+                },
+                timeline: {
+                    title: 'Experience',
+                    subtitle: 'Two development tracks across frontend and backend',
+                    frontend: 'Frontend (Mob+Web) dev: Bayram Annagurbanov',
+                    backend: 'Backend dev: Didar Kamiljanov'
+                },
+                typewriter: [
+                    'Business process automation.',
+                    'CRM systems and internal dashboards.',
+                    'Corporate web and mobile platforms.',
+                    'Integrations with APIs, ERP, and payments.',
+                    'Analytics, reporting, and scalable growth.'
+                ]
+            }
+        },
+        ru: {
+            common: {
+                navToggleAria: 'Открыть или закрыть меню навигации',
+                switcherAria: 'Переключатель языка',
+                contact: {
+                    heading: 'Связаться с нами',
+                    nameLabel: 'Ваше имя',
+                    emailLabel: 'Email адрес',
+                    messageLabel: 'Ваше сообщение',
+                    send: 'Отправить сообщение',
+                    fallbackPrefix: 'Если кнопка не открыла почтовое приложение, используйте',
+                    successTitle: 'Сообщение успешно отправлено!',
+                    successSubtitle: 'Спасибо за обращение. Мы свяжемся с вами в ближайшее время.'
+                },
+                mail: {
+                    subjectPrefix: 'Контакт с портфолио от',
+                    name: 'Имя',
+                    email: 'Email',
+                    message: 'Сообщение'
+                }
+            },
+            index: {
+                meta: {
+                    title: 'BaDi Systems | Кроссплатформенная продуктовая разработка',
+                    description: 'BaDi Systems разрабатывает кроссплатформенные продукты на Flutter, Jetpack Compose, Jaspr, Go, PostgreSQL и Docker.',
+                    ogTitle: 'BaDi Systems | Кроссплатформенная продуктовая разработка',
+                    ogDescription: 'Мобильная, веб- и backend-разработка на современном стеке.'
+                },
+                nav: {
+                    home: 'Главная',
+                    students: 'Студентам',
+                    business: 'Бизнесу',
+                    about: 'О нас',
+                    contact: 'Контакты'
+                },
+                hero: {
+                    greeting: 'мы',
+                    subtitle: 'Кроссплатформенная продуктовая разработка · Мобайл · Веб · Backend',
+                    cta: 'Связаться',
+                    resume: 'Скачать резюме'
+                },
+                loader: {
+                    loading: 'Загружаем 3D модель...',
+                    fail: 'Не удалось инициализировать 3D модуль. Отключите строгий adblock/VPN и обновите страницу.',
+                    slow: '3D модель все еще загружается... подождите несколько секунд.'
+                },
+                about: {
+                    title: 'О нас',
+                    subtitle: 'Создаем надежные продукты для mobile, web и backend',
+                    p1: 'Мы команда <span class="about-highlight">BaDi Systems</span>, которая помогает стартапам и развивающимся компаниям быстро запускать масштабируемые цифровые продукты.',
+                    p2: 'Наш frontend-стек построен для кроссплатформенной разработки: <span class="about-highlight">Flutter, Jetpack Compose, SwiftUI и Jaspr</span>. Это позволяет выпускать единый качественный UX для iOS, Android и web.',
+                    p3: 'На backend мы создаем надежные сервисы на <span class="about-highlight">Go, PostgreSQL и Docker</span>, делая упор на чистую архитектуру, производительность и стабильные продакшн-релизы.',
+                    p4: 'Также мы поддерживаем студентов через <span class="about-highlight">менторство, консультации и структурированное сопровождение</span> по рефератам, курсовым, дипломным и лабораторным работам.'
+                },
+                footer: '\u00a9 2026 BaDi Systems. Все права защищены.',
+                typewriter: [
+                    'Кроссплатформенная продуктовая разработка.',
+                    'Flutter · Jetpack Compose · SwiftUI · Jaspr.',
+                    'Go · PostgreSQL · Docker.',
+                    'Поддержка студентов: рефераты, курсовые, дипломные, лабораторные и другое.'
+                ]
+            },
+            students: {
+                meta: {
+                    title: 'Для студентов | BaDi Systems',
+                    description: 'Поддержка студентов: рефераты, дипломные, лабораторные и курсовые работы.',
+                    ogTitle: 'Для студентов | BaDi Systems',
+                    ogDescription: 'Помощь студентам: рефераты, дипломные, лабораторные, курсовые и многое другое.'
+                },
+                nav: {
+                    home: 'Главная',
+                    business: 'Бизнесу',
+                    services: 'Услуги',
+                    universities: 'Университеты',
+                    achievements: 'Достижения',
+                    contact: 'Контакты'
+                },
+                hero: {
+                    title: 'Для студентов',
+                    subtitle: 'Поддержка и сопровождение учебных работ'
+                },
+                services: {
+                    title: 'Услуги',
+                    subtitle: 'Форматы поддержки студентов и стоимость',
+                    thesis: 'Дипломная работа',
+                    thesisPrice: 'от 5 000 ₽',
+                    coursework: 'Курсовой проект',
+                    courseworkPrice: 'от 1 000 ₽',
+                    labs: 'Лабораторные / Практические работы',
+                    labsPrice: 'от 200 ₽',
+                    presentations: 'Интерактивные презентации',
+                    presentationsPrice: 'от 300 ₽',
+                    essay: 'Реферат',
+                    essayPrice: 'от 350 ₽',
+                    reports: 'Отчеты',
+                    reportsPrice: 'от 300 ₽',
+                    internship: 'Отчет по практике',
+                    internshipPrice: 'от 1 000 ₽'
+                },
+                universities: {
+                    title: 'Университеты, с которыми мы работали',
+                    subtitle: 'Мы помогали студентам ведущих российских вузов в подготовке учебных проектов и курсовых работ.',
+                    names: [
+                        'АГУ',
+                        'Белгородский государственный университет',
+                        'Университет ИТМО',
+                        'КБГУ',
+                        'КЧГУ',
+                        'Казанский федеральный университет',
+                        'Кубанский государственный университет',
+                        'МГУ им. Ломоносова',
+                        'РУДН',
+                        'СКФУ',
+                        'Санкт-Петербургский государственный университет',
+                        'Воронежский государственный университет',
+                        'Волгоградский государственный университет'
+                    ]
+                },
+                achievements: {
+                    title: 'Достижения',
+                    subtitle: 'Академические результаты, подтвержденные реальными метриками',
+                    a1Title: '1 000+ выполненных студенческих работ',
+                    a1Body: 'Мы помогли выполнить более <strong>420 рефератов</strong>, <strong>330 лабораторных</strong>, <strong>190 курсовых проектов</strong> и <strong>85 дипломных работ</strong> с качественной структурой, исследовательской глубиной и сдачей в срок.',
+                    a1Link: 'Обсудить вашу задачу →',
+                    a2Title: '95% работ получили высший балл',
+                    a2Body: '<strong>95%</strong> сданных работ получили оценку <strong>5 / A-level</strong>. Наш подход основан на четкой методологии, правильном оформлении и материалах, готовых к уверенной защите.'
+                },
+                typewriter: [
+                    'Рефераты.',
+                    'Дипломные работы.',
+                    'Лабораторные работы.',
+                    'Курсовые проекты.',
+                    'И многое другое.'
+                ]
+            },
+            business: {
+                meta: {
+                    title: 'Для бизнеса | BaDi Systems',
+                    description: 'Для бизнеса: цифровые решения для роста, автоматизации и масштабирования.',
+                    ogTitle: 'Для бизнеса | BaDi Systems',
+                    ogDescription: 'Бизнес-решения: автоматизация, CRM, web/mobile платформы, интеграции и аналитика.'
+                },
+                nav: {
+                    home: 'Главная',
+                    students: 'Студентам',
+                    skills: 'Навыки',
+                    projects: 'Проекты',
+                    experience: 'Опыт',
+                    contact: 'Контакты'
+                },
+                hero: {
+                    title: 'Для бизнеса',
+                    subtitle: 'Решения для роста, автоматизации и масштабирования бизнеса'
+                },
+                skills: {
+                    title: 'Технические навыки',
+                    subtitle: 'Инструменты и технологии, с которыми мы работаем',
+                    frontend: 'Фронтенд',
+                    backend: 'Бэкенд',
+                    databases: 'Базы данных',
+                    cloud: 'Облако / Инструменты',
+                    concepts: 'Концепции'
+                },
+                projects: {
+                    title: 'Ключевые проекты',
+                    subtitle: 'Реальные продукты и реальные релизы'
+                },
+                timeline: {
+                    title: 'Опыт',
+                    subtitle: 'Два направления разработки: frontend и backend',
+                    frontend: 'Frontend (Mob+Web): Bayram Annagurbanov',
+                    backend: 'Backend: Didar Kamiljanov'
+                },
+                typewriter: [
+                    'Автоматизация бизнес-процессов.',
+                    'CRM-системы и внутренние дашборды.',
+                    'Корпоративные web и mobile платформы.',
+                    'Интеграции с API, ERP и платежами.',
+                    'Аналитика, отчеты и масштабируемый рост.'
+                ]
+            }
+        },
+        tk: {
+            common: {
+                navToggleAria: 'Nawigasiýa menýusyny aç ýa-da ýap',
+                switcherAria: 'Dil saýlaýjy',
+                contact: {
+                    heading: 'Habarlaşalyň',
+                    nameLabel: 'Adyňyz',
+                    emailLabel: 'Email salgyňyz',
+                    messageLabel: 'Hatyňyz',
+                    send: 'Habar iber',
+                    fallbackPrefix: 'Düwme poçta programmasyny açmasa, şuny ulanyň',
+                    successTitle: 'Habar üstünlikli iberildi!',
+                    successSubtitle: 'Habarlaşanyňyz üçin sag boluň. Tiz wagtda jogap bereris.'
+                },
+                mail: {
+                    subjectPrefix: 'Portfolio arkaly habarlaşma',
+                    name: 'Ady',
+                    email: 'Email',
+                    message: 'Habar'
+                }
+            },
+            index: {
+                meta: {
+                    title: 'BaDi Systems | Kross-platforma önüm döretmek',
+                    description: 'BaDi Systems Flutter, Jetpack Compose, Jaspr, Go, PostgreSQL we Docker bilen kross-platforma önümleri döredýär.',
+                    ogTitle: 'BaDi Systems | Kross-platforma önüm döretmek',
+                    ogDescription: 'Mobil, web we backend üçin häzirki zaman steki bilen.'
+                },
+                nav: {
+                    home: 'Baş sahypa',
+                    students: 'Talyplar',
+                    business: 'Biznes',
+                    about: 'Biz barada',
+                    contact: 'Habarlaşmak'
+                },
+                hero: {
+                    greeting: 'biz',
+                    subtitle: 'Kross-platforma önüm döretmek · Mobil · Web · Backend',
+                    cta: 'Habarlaşalyň',
+                    resume: 'Rezýumeni ýükläp al'
+                },
+                loader: {
+                    loading: '3D model ýüklenýär...',
+                    fail: '3D moduly başlatmak başartmady. Güýçli adblock/VPN sazlamasyny öçürip täzeden ýükläň.',
+                    slow: '3D model henizem ýüklenýär... birnäçe sekunt garaşyň.'
+                },
+                about: {
+                    title: 'Biz barada',
+                    subtitle: 'Mobil, web we backend boýunça ygtybarly önümler',
+                    p1: 'Biz <span class="about-highlight">BaDi Systems</span> topary bolup, startaplar we ösýän kompaniýalar üçin çalt hem giňelip bolýan sanly önümleri döredýäris.',
+                    p2: 'Frontend stekimiz <span class="about-highlight">Flutter, Jetpack Compose, SwiftUI we Jaspr</span> esasynda kross-platforma önüm döretmäge gönükdirilen. Şonuň bilen iOS, Android we web üçin bitewi UX berýäris.',
+                    p3: 'Backend tarapynda biz arassa arhitektura, öndürijilik we durnukly önümçilik relizlerine ünsi jemläp, <span class="about-highlight">Go, PostgreSQL we Docker</span> ulanyp ygtybarly hyzmatlary gurýarys.',
+                    p4: 'Şeýle hem, biz talyplara <span class="about-highlight">mentorlyk, esseler, kurs işleri we laboratoriýa işleri üçin goldaw</span> berýäris.'
+                },
+                footer: '\u00a9 2026 BaDi Systems. Ähli hukuklar goralan.',
+                typewriter: [
+                    'Kross-platforma önüm döretmek.',
+                    'Flutter · Jetpack Compose · SwiftUI · Jaspr.',
+                    'Go · PostgreSQL · Docker.',
+                    'Talyplar üçin goldaw: referatlar, kurs işleri, diplomlar, laborator işler we beýlekiler.'
+                ]
+            },
+            students: {
+                meta: {
+                    title: 'Talyplar üçin | BaDi Systems',
+                    description: 'Talyplar üçin goldaw: referatlar, diplomlar, laborator we kurs işleri.',
+                    ogTitle: 'Talyplar üçin | BaDi Systems',
+                    ogDescription: 'Talyplara goldaw: referatlar, diplomlar, laborator, kurs işleri we başgalar.'
+                },
+                nav: {
+                    home: 'Baş sahypa',
+                    business: 'Biznes',
+                    services: 'Hyzmatlar',
+                    universities: 'Uniwersitetler',
+                    achievements: 'Üstünlikler',
+                    contact: 'Habarlaşmak'
+                },
+                hero: {
+                    title: 'Talyplar üçin',
+                    subtitle: 'Okuw işleri üçin goldaw we ýolbeletlik'
+                },
+                services: {
+                    title: 'Hyzmatlar',
+                    subtitle: 'Talyplar üçin hyzmatlar we bahalar',
+                    thesis: 'Diplom işi',
+                    thesisPrice: '5 000 ₽-dan',
+                    coursework: 'Kurs proýekti',
+                    courseworkPrice: '1 000 ₽-dan',
+                    labs: 'Laborator / Praktiki işler',
+                    labsPrice: '200 ₽-dan',
+                    presentations: 'Interaktiw prezentasiýalar',
+                    presentationsPrice: '300 ₽-dan',
+                    essay: 'Referat',
+                    essayPrice: '350 ₽-dan',
+                    reports: 'Hasabatlar',
+                    reportsPrice: '300 ₽-dan',
+                    internship: 'Praktika hasabaty',
+                    internshipPrice: '1 000 ₽-dan'
+                },
+                universities: {
+                    title: 'Biz bilen işleşýän talyplaryň uniwersitetleri',
+                    subtitle: 'Biz Russiýanyň öňdebaryjy uniwersitetleriniň talyplaryna okuw proýektleri we kurs işleri boýunça kömek etdik.',
+                    names: [
+                        'AGU',
+                        'Belgorod Döwlet Uniwersiteti',
+                        'ITMO Uniwersiteti',
+                        'KBGU',
+                        'KChGU',
+                        'Kazan Federal Uniwersiteti',
+                        'Kuban Döwlet Uniwersiteti',
+                        'Lomonosow adyndaky MDU',
+                        'RUDN Uniwersiteti',
+                        'SKFU',
+                        'Sankt-Peterburg Döwlet Uniwersiteti',
+                        'Woronež Döwlet Uniwersiteti',
+                        'Wolgograd Döwlet Uniwersiteti'
+                    ]
+                },
+                achievements: {
+                    title: 'Üstünlikler',
+                    subtitle: 'Hakyky ölçegler bilen tassyklanan akademiki netijeler',
+                    a1Title: '1 000+ talyp işi ýerine ýetirildi',
+                    a1Body: 'Biz <strong>420+ referat</strong>, <strong>330+ laborator iş</strong>, <strong>190+ kurs proýekti</strong> we <strong>85+ diplom işi</strong> boýunça ýokary hilli kömek etdik.',
+                    a1Link: 'Ýumuşyňyzy ara alyp maslahatlaşyň →',
+                    a2Title: '95% ýokary baha görkezijisi',
+                    a2Body: 'Tabşyrylan işleriň <strong>95%-i</strong> <strong>5 / A derejesinde</strong> bahalandy. Biziň usulymyz düşnükli metodologiýa, dogry format we goraga taýyn materiallara esaslanýar.'
+                },
+                typewriter: [
+                    'Referatlar.',
+                    'Diplom işleri.',
+                    'Laborator işler.',
+                    'Kurs proýektleri.',
+                    'We başga-da köp zat.'
+                ]
+            },
+            business: {
+                meta: {
+                    title: 'Biznes üçin | BaDi Systems',
+                    description: 'Biznes üçin: ösüş, awtomatizasiýa we giňelme üçin sanly çözgütler.',
+                    ogTitle: 'Biznes üçin | BaDi Systems',
+                    ogDescription: 'Biznes çözgütleri: awtomatizasiýa, CRM, web/mobile platformalar, integrasiýalar we analitika.'
+                },
+                nav: {
+                    home: 'Baş sahypa',
+                    students: 'Talyplar',
+                    skills: 'Başarnyklar',
+                    projects: 'Proýektler',
+                    experience: 'Tejribe',
+                    contact: 'Habarlaşmak'
+                },
+                hero: {
+                    title: 'Biznes üçin',
+                    subtitle: 'Ösüş, awtomatizasiýa we giňelme üçin biznes çözgütleri'
+                },
+                skills: {
+                    title: 'Tehniki başarnyklar',
+                    subtitle: 'Ulanylýan gurallar we tehnologiýalar',
+                    frontend: 'Frontend',
+                    backend: 'Backend',
+                    databases: 'Maglumat bazalary',
+                    cloud: 'Bulut / Gurallar',
+                    concepts: 'Konsepsiýalar'
+                },
+                projects: {
+                    title: 'Biziň proýektlerimiz',
+                    subtitle: 'Hakyky önümler'
+                },
+                timeline: {
+                    title: 'Tejribe',
+                    subtitle: 'Frontend we backend boýunça iki ugur',
+                    frontend: 'Frontend (Mob+Web): Bayram Annagurbanov',
+                    backend: 'Backend: Didar Kamiljanov'
+                },
+                typewriter: [
+                    'Biznes prosesleriniň awtomatizasiýasy.',
+                    'CRM ulgamlary we içerki dashboardlar.',
+                    'Korporatiw web we mobil platformalar.',
+                    'API, ERP we töleg ulgamlary bilen integrasiýa.',
+                    'Analitika, hasabat we giňelýän ösüş.'
+                ]
+            }
+        }
+    };
+
+    const PAGE_BINDINGS = {
+        index: {
+            meta: {
+                title: 'index.meta.title',
+                description: 'index.meta.description',
+                ogTitle: 'index.meta.ogTitle',
+                ogDescription: 'index.meta.ogDescription'
+            },
+            bindings: [
+                { selector: 'nav .nav-links a[href="#hero"]', key: 'index.nav.home' },
+                { selector: 'nav .nav-links a[href="for-students.html"]', key: 'index.nav.students' },
+                { selector: 'nav .nav-links a[href="for-business.html"]', key: 'index.nav.business' },
+                { selector: 'nav .nav-links a[href="#about"]', key: 'index.nav.about' },
+                { selector: 'nav .nav-links a[href="#contact"]', key: 'index.nav.contact' },
+                { selector: 'nav .nav-toggle', type: 'attr', attr: 'aria-label', key: 'common.navToggleAria' },
+                { selector: '.hero-greeting', key: 'index.hero.greeting' },
+                { selector: '.hero-subtitle', key: 'index.hero.subtitle' },
+                { selector: '.hero-actions .cta-button', key: 'index.hero.cta' },
+                { selector: '.hero-actions .resume-button', key: 'index.hero.resume' },
+                { selector: '#pcModelLoader', key: 'index.loader.loading' },
+                { selector: '#about h2', key: 'index.about.title' },
+                { selector: '#about .section-subtitle', key: 'index.about.subtitle' },
+                { selector: '#about .about-text p:nth-of-type(1)', key: 'index.about.p1', type: 'html' },
+                { selector: '#about .about-text p:nth-of-type(2)', key: 'index.about.p2', type: 'html' },
+                { selector: '#about .about-text p:nth-of-type(3)', key: 'index.about.p3', type: 'html' },
+                { selector: '#about .about-text p:nth-of-type(4)', key: 'index.about.p4', type: 'html' },
+                { selector: '#contact .contact-heading', key: 'common.contact.heading' },
+                { selector: '#contact label[for="name"]', key: 'common.contact.nameLabel' },
+                { selector: '#contact label[for="email"]', key: 'common.contact.emailLabel' },
+                { selector: '#contact label[for="message"]', key: 'common.contact.messageLabel' },
+                { selector: '#contact .submit-button', key: 'common.contact.send' },
+                { selector: '#contact #formSuccess h3', key: 'common.contact.successTitle' },
+                { selector: '#contact #formSuccess .success-subtext', key: 'common.contact.successSubtitle' },
+                { selector: 'footer p', key: 'index.footer' }
+            ]
+        },
+        students: {
+            meta: {
+                title: 'students.meta.title',
+                description: 'students.meta.description',
+                ogTitle: 'students.meta.ogTitle',
+                ogDescription: 'students.meta.ogDescription'
+            },
+            bindings: [
+                { selector: 'nav .nav-links a[href="index.html"]', key: 'students.nav.home' },
+                { selector: 'nav .nav-links a[href="for-business.html"]', key: 'students.nav.business' },
+                { selector: 'nav .nav-links a[href="#services"]', key: 'students.nav.services' },
+                { selector: 'nav .nav-links a[href="#universities"]', key: 'students.nav.universities' },
+                { selector: 'nav .nav-links a[href="#achievements"]', key: 'students.nav.achievements' },
+                { selector: 'nav .nav-links a[href="#contact"]', key: 'students.nav.contact' },
+                { selector: 'nav .nav-toggle', type: 'attr', attr: 'aria-label', key: 'common.navToggleAria' },
+                { selector: '#hero .hero-title', key: 'students.hero.title' },
+                { selector: '#hero .hero-subtitle', key: 'students.hero.subtitle' },
+                { selector: '#services h2', key: 'students.services.title' },
+                { selector: '#services .section-subtitle', key: 'students.services.subtitle' },
+                { selector: '#services .service-card:nth-of-type(1) h3', key: 'students.services.thesis' },
+                { selector: '#services .service-card:nth-of-type(1) .service-price', key: 'students.services.thesisPrice' },
+                { selector: '#services .service-card:nth-of-type(2) h3', key: 'students.services.coursework' },
+                { selector: '#services .service-card:nth-of-type(2) .service-price', key: 'students.services.courseworkPrice' },
+                { selector: '#services .service-card:nth-of-type(3) h3', key: 'students.services.labs' },
+                { selector: '#services .service-card:nth-of-type(3) .service-price', key: 'students.services.labsPrice' },
+                { selector: '#services .service-card:nth-of-type(4) h3', key: 'students.services.presentations' },
+                { selector: '#services .service-card:nth-of-type(4) .service-price', key: 'students.services.presentationsPrice' },
+                { selector: '#services .service-card:nth-of-type(5) h3', key: 'students.services.essay' },
+                { selector: '#services .service-card:nth-of-type(5) .service-price', key: 'students.services.essayPrice' },
+                { selector: '#services .service-card:nth-of-type(6) h3', key: 'students.services.reports' },
+                { selector: '#services .service-card:nth-of-type(6) .service-price', key: 'students.services.reportsPrice' },
+                { selector: '#services .service-card:nth-of-type(7) h3', key: 'students.services.internship' },
+                { selector: '#services .service-card:nth-of-type(7) .service-price', key: 'students.services.internshipPrice' },
+                { selector: '#universities h2', key: 'students.universities.title' },
+                { selector: '#universities .section-subtitle', key: 'students.universities.subtitle' },
+                { selector: '#achievements h2', key: 'students.achievements.title' },
+                { selector: '#achievements .section-subtitle', key: 'students.achievements.subtitle' },
+                { selector: '#achievements .achievement-card:nth-of-type(1) h3', key: 'students.achievements.a1Title' },
+                { selector: '#achievements .achievement-card:nth-of-type(1) .achievement-body p', key: 'students.achievements.a1Body', type: 'html' },
+                { selector: '#achievements .achievement-card:nth-of-type(1) .achievement-link', key: 'students.achievements.a1Link' },
+                { selector: '#achievements .achievement-card:nth-of-type(2) h3', key: 'students.achievements.a2Title' },
+                { selector: '#achievements .achievement-card:nth-of-type(2) .achievement-body p', key: 'students.achievements.a2Body', type: 'html' },
+                { selector: '#contact .contact-heading', key: 'common.contact.heading' },
+                { selector: '#contact label[for="name"]', key: 'common.contact.nameLabel' },
+                { selector: '#contact label[for="email"]', key: 'common.contact.emailLabel' },
+                { selector: '#contact label[for="message"]', key: 'common.contact.messageLabel' },
+                { selector: '#contact .submit-button', key: 'common.contact.send' },
+                { selector: '#contact #formSuccess h3', key: 'common.contact.successTitle' },
+                { selector: '#contact #formSuccess .success-subtext', key: 'common.contact.successSubtitle' }
+            ]
+        },
+        business: {
+            meta: {
+                title: 'business.meta.title',
+                description: 'business.meta.description',
+                ogTitle: 'business.meta.ogTitle',
+                ogDescription: 'business.meta.ogDescription'
+            },
+            bindings: [
+                { selector: 'nav .nav-links a[href="index.html"]', key: 'business.nav.home' },
+                { selector: 'nav .nav-links a[href="for-students.html"]', key: 'business.nav.students' },
+                { selector: 'nav .nav-links a[href="#skills"]', key: 'business.nav.skills' },
+                { selector: 'nav .nav-links a[href="#projects"]', key: 'business.nav.projects' },
+                { selector: 'nav .nav-links a[href="#timeline"]', key: 'business.nav.experience' },
+                { selector: 'nav .nav-links a[href="#contact"]', key: 'business.nav.contact' },
+                { selector: 'nav .nav-toggle', type: 'attr', attr: 'aria-label', key: 'common.navToggleAria' },
+                { selector: '#hero .hero-title', key: 'business.hero.title' },
+                { selector: '#hero .hero-subtitle', key: 'business.hero.subtitle' },
+                { selector: '#skills h2', key: 'business.skills.title' },
+                { selector: '#skills .section-subtitle', key: 'business.skills.subtitle' },
+                { selector: '#skills .skill-card:nth-of-type(1) h3', key: 'business.skills.frontend', type: 'iconText' },
+                { selector: '#skills .skill-card:nth-of-type(2) h3', key: 'business.skills.backend', type: 'iconText' },
+                { selector: '#skills .skill-card:nth-of-type(3) h3', key: 'business.skills.databases', type: 'iconText' },
+                { selector: '#skills .skill-card:nth-of-type(4) h3', key: 'business.skills.cloud', type: 'iconText' },
+                { selector: '#skills .skill-card:nth-of-type(5) h3', key: 'business.skills.concepts', type: 'iconText' },
+                { selector: '#projects h2', key: 'business.projects.title' },
+                { selector: '#projects .section-subtitle', key: 'business.projects.subtitle' },
+                { selector: '#timeline h2', key: 'business.timeline.title' },
+                { selector: '#timeline .section-subtitle', key: 'business.timeline.subtitle' },
+                { selector: '#timeline .timeline-toggle[data-timeline="frontend-track"]', key: 'business.timeline.frontend' },
+                { selector: '#timeline .timeline-toggle[data-timeline="backend-track"]', key: 'business.timeline.backend' },
+                { selector: '#contact .contact-heading', key: 'common.contact.heading' },
+                { selector: '#contact label[for="name"]', key: 'common.contact.nameLabel' },
+                { selector: '#contact label[for="email"]', key: 'common.contact.emailLabel' },
+                { selector: '#contact label[for="message"]', key: 'common.contact.messageLabel' },
+                { selector: '#contact .submit-button', key: 'common.contact.send' },
+                { selector: '#contact #formSuccess h3', key: 'common.contact.successTitle' },
+                { selector: '#contact #formSuccess .success-subtext', key: 'common.contact.successSubtitle' }
+            ]
+        }
+    };
+
+    let currentLang = DEFAULT_LANG;
+
+    const getPageName = () => {
+        const byData = document.body ? document.body.dataset.page : '';
+        if (byData) return byData;
+
+        const pathname = globalThis.location.pathname;
+        if (pathname.endsWith('for-students.html')) return 'students';
+        if (pathname.endsWith('for-business.html')) return 'business';
+        return 'index';
+    };
+
+    const getValue = (obj, path) => {
+        return path.split('.').reduce((acc, key) => (acc && key in acc ? acc[key] : undefined), obj);
+    };
+
+    const t = (path, lang = currentLang) => {
+        const value = getValue(COPY[lang], path);
+        if (value !== undefined) return value;
+        const fallback = getValue(COPY[DEFAULT_LANG], path);
+        return fallback !== undefined ? fallback : path;
+    };
+
+    const updateMeta = (pageName) => {
+        const config = PAGE_BINDINGS[pageName] && PAGE_BINDINGS[pageName].meta;
+        if (!config) return;
+
+        const title = t(config.title);
+        const description = t(config.description);
+        const ogTitle = t(config.ogTitle);
+        const ogDescription = t(config.ogDescription);
+
+        document.title = title;
+
+        const descriptionMeta = document.querySelector('meta[name="description"]');
+        if (descriptionMeta) descriptionMeta.setAttribute('content', description);
+
+        const ogTitleMeta = document.querySelector('meta[property="og:title"]');
+        if (ogTitleMeta) ogTitleMeta.setAttribute('content', ogTitle);
+
+        const ogDescriptionMeta = document.querySelector('meta[property="og:description"]');
+        if (ogDescriptionMeta) ogDescriptionMeta.setAttribute('content', ogDescription);
+    };
+
+    const setTextAfterIcon = (element, value) => {
+        const icon = element.querySelector('i');
+        if (!icon) {
+            element.textContent = value;
+            return;
+        }
+
+        Array.from(element.childNodes).forEach((node) => {
+            if (node !== icon) element.removeChild(node);
+        });
+        if (value && value.trim()) {
+            element.append(document.createTextNode(` ${value}`));
+        }
+    };
+
+    const captureBusinessProjectDefaults = () => {
+        const cards = document.querySelectorAll('#projects .project-card');
+        if (!cards.length) return [];
+
+        return Array.from(cards).map((card) => {
+            const blocks = card.querySelectorAll('.case-study-block');
+
+            const getListText = (blockIndex) => {
+                const block = blocks[blockIndex];
+                if (!block) return [];
+                return Array.from(block.querySelectorAll('li')).map((li) => li.textContent.trim());
+            };
+
+            const getHeadingText = (blockIndex) => {
+                const heading = blocks[blockIndex] && blocks[blockIndex].querySelector('h5');
+                if (!heading) return '';
+                const clone = heading.cloneNode(true);
+                const icon = clone.querySelector('i');
+                if (icon) icon.remove();
+                return clone.textContent.replace(/\s+/g, ' ').trim();
+            };
+
+            return {
+                title: (card.querySelector('.project-header-row h3') || {}).textContent?.trim() || '',
+                description: (card.querySelector('.project-description') || {}).textContent?.trim() || '',
+                actions: Array.from(card.querySelectorAll('.project-actions .project-link')).map((link) => {
+                    return link.textContent.replace(/\s+/g, ' ').trim();
+                }),
+                problemTitle: getHeadingText(0),
+                problemBody: (blocks[0] && blocks[0].querySelector('p') ? blocks[0].querySelector('p').textContent.trim() : ''),
+                architectureTitle: getHeadingText(1),
+                architectureItems: getListText(1),
+                challengesTitle: getHeadingText(2),
+                challengesItems: getListText(2),
+                learnedTitle: getHeadingText(3),
+                learnedItems: getListText(3)
+            };
+        });
+    };
+
+    const setListText = (listElement, values) => {
+        if (!listElement || !Array.isArray(values)) return;
+        const items = listElement.querySelectorAll('li');
+        items.forEach((item, index) => {
+            if (values[index] !== undefined) {
+                item.textContent = values[index];
+            }
+        });
+    };
+
+    const applyBusinessProjectCards = (pageName) => {
+        if (pageName !== 'business') return;
+
+        if (!businessProjectDefaults) {
+            businessProjectDefaults = captureBusinessProjectDefaults();
+        }
+
+        const localizedCards = BUSINESS_PROJECT_TRANSLATIONS[currentLang];
+        const cards = document.querySelectorAll('#projects .project-card');
+        if (!cards.length || !businessProjectDefaults.length) return;
+
+        Array.from(cards).forEach((card, index) => {
+            const fallback = businessProjectDefaults[index];
+            const source = (localizedCards && localizedCards[index]) || fallback;
+            if (!source) return;
+
+            const title = card.querySelector('.project-header-row h3');
+            if (title) title.textContent = source.title || fallback.title;
+
+            const description = card.querySelector('.project-description');
+            if (description) description.textContent = source.description || fallback.description;
+
+            const actionLinks = card.querySelectorAll('.project-actions .project-link');
+            actionLinks.forEach((link, actionIndex) => {
+                const text = (source.actions && source.actions[actionIndex] !== undefined)
+                    ? source.actions[actionIndex]
+                    : (fallback.actions[actionIndex] || '');
+                setTextAfterIcon(link, text);
+            });
+
+            const blocks = card.querySelectorAll('.case-study-block');
+            if (blocks[0]) {
+                const h5 = blocks[0].querySelector('h5');
+                if (h5) setTextAfterIcon(h5, source.problemTitle || fallback.problemTitle);
+                const p = blocks[0].querySelector('p');
+                if (p) p.textContent = source.problemBody || fallback.problemBody;
+            }
+
+            if (blocks[1]) {
+                const h5 = blocks[1].querySelector('h5');
+                if (h5) setTextAfterIcon(h5, source.architectureTitle || fallback.architectureTitle);
+                setListText(blocks[1].querySelector('ul'), source.architectureItems || fallback.architectureItems);
+            }
+
+            if (blocks[2]) {
+                const h5 = blocks[2].querySelector('h5');
+                if (h5) setTextAfterIcon(h5, source.challengesTitle || fallback.challengesTitle);
+                setListText(blocks[2].querySelector('ul'), source.challengesItems || fallback.challengesItems);
+            }
+
+            if (blocks[3]) {
+                const h5 = blocks[3].querySelector('h5');
+                if (h5) setTextAfterIcon(h5, source.learnedTitle || fallback.learnedTitle);
+                setListText(blocks[3].querySelector('ul'), source.learnedItems || fallback.learnedItems);
+            }
+        });
+    };
+
+    const applyBindings = (pageName) => {
+        const pageBindings = PAGE_BINDINGS[pageName];
+        if (!pageBindings) return;
+
+        pageBindings.bindings.forEach((binding) => {
+            const value = t(binding.key);
+            const elements = document.querySelectorAll(binding.selector);
+            if (!elements.length) return;
+
+            elements.forEach((element) => {
+                if (binding.type === 'attr') {
+                    element.setAttribute(binding.attr, value);
+                    return;
+                }
+
+                if (binding.type === 'iconText') {
+                    setTextAfterIcon(element, value);
+                    return;
+                }
+
+                if (binding.type === 'html') {
+                    element.innerHTML = value;
+                    return;
+                }
+
+                element.textContent = value;
+            });
+        });
+    };
+
+    const applyUniversityNames = (pageName) => {
+        if (pageName !== 'students') return;
+
+        const localizedNames = t('students.universities.names');
+        if (!Array.isArray(localizedNames) || localizedNames.length === 0) return;
+
+        const cards = document.querySelectorAll('#universities .university-logo-card');
+        if (!cards.length) return;
+
+        cards.forEach((card, index) => {
+            const titleElement = card.querySelector('span');
+            if (!titleElement) return;
+            titleElement.textContent = localizedNames[index % localizedNames.length];
+        });
+    };
+
+    const applyContactFallback = () => {
+        const prefix = t('common.contact.fallbackPrefix');
+        document.querySelectorAll('.contact-fallback').forEach((fallbackElement) => {
+            const link = fallbackElement.querySelector('a');
+            if (!link) {
+                fallbackElement.textContent = prefix;
+                return;
+            }
+
+            fallbackElement.textContent = '';
+            fallbackElement.append(document.createTextNode(`${prefix} `));
+            fallbackElement.append(link);
+            fallbackElement.append(document.createTextNode('.'));
+        });
+    };
+
+    const ensureLanguageSwitcher = () => {
+        const nav = document.querySelector('nav');
+        if (!nav) return null;
+
+        let switcher = nav.querySelector('.lang-switcher');
+        if (switcher) return switcher;
+
+        switcher = document.createElement('div');
+        switcher.className = 'lang-switcher';
+        switcher.setAttribute('role', 'group');
+
+        SUPPORTED_LANGS.forEach((lang) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'lang-switcher-btn';
+            button.dataset.lang = lang;
+            button.textContent = lang.toUpperCase();
+            button.addEventListener('click', () => {
+                setLanguage(lang, { persist: true, notify: true });
+            });
+            switcher.append(button);
+        });
+
+        nav.append(switcher);
+        return switcher;
+    };
+
+    const applySwitcherState = () => {
+        const switcher = ensureLanguageSwitcher();
+        if (!switcher) return;
+
+        switcher.setAttribute('aria-label', t('common.switcherAria'));
+
+        switcher.querySelectorAll('.lang-switcher-btn').forEach((button) => {
+            const isActive = button.dataset.lang === currentLang;
+            button.classList.toggle('active', isActive);
+            button.setAttribute('aria-pressed', String(isActive));
+        });
+    };
+
+    const applyLanguage = () => {
+        const pageName = getPageName();
+        document.documentElement.lang = currentLang;
+        updateMeta(pageName);
+        applyBindings(pageName);
+        applyBusinessProjectCards(pageName);
+        applyUniversityNames(pageName);
+        applyContactFallback();
+        applySwitcherState();
+    };
+
+    const resolveInitialLanguage = () => {
+        const urlLang = new URLSearchParams(globalThis.location.search).get('lang');
+        if (SUPPORTED_LANGS.includes(urlLang)) return urlLang;
+
+        try {
+            const storedLang = globalThis.localStorage.getItem(STORAGE_KEY);
+            if (SUPPORTED_LANGS.includes(storedLang)) return storedLang;
+        } catch (error) {
+            // Ignore storage issues and continue with fallback resolution.
+        }
+
+        const htmlLang = (document.documentElement.lang || '').toLowerCase();
+        if (SUPPORTED_LANGS.includes(htmlLang)) return htmlLang;
+
+        return DEFAULT_LANG;
+    };
+
+    const setLanguage = (lang, options = {}) => {
+        const { persist = true, notify = true } = options;
+        if (!SUPPORTED_LANGS.includes(lang)) return;
+
+        currentLang = lang;
+        if (persist) {
+            try {
+                globalThis.localStorage.setItem(STORAGE_KEY, lang);
+            } catch (error) {
+                // Ignore storage errors in private/locked environments.
+            }
+        }
+
+        applyLanguage();
+
+        if (notify) {
+            globalThis.dispatchEvent(new CustomEvent('badi:languagechange', { detail: { lang } }));
+        }
+    };
+
+    const getPhrases = (pageName) => {
+        const fromPage = t(`${pageName}.typewriter`);
+        if (Array.isArray(fromPage)) return fromPage.slice();
+        return [];
+    };
+
+    currentLang = resolveInitialLanguage();
+    applyLanguage();
+
+    globalThis.BaDiI18n = {
+        t,
+        getLang: () => currentLang,
+        getPhrases,
+        setLanguage: (lang) => setLanguage(lang, { persist: true, notify: true })
+    };
+})();

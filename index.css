@@ -116,6 +116,7 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
+            white-space: nowrap;
             transition: color 0.3s var(--transition-smooth);
             position: relative;
         }
@@ -137,6 +138,35 @@
 
         nav a:hover::after {
             width: 100%;
+        }
+
+        .lang-switcher {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 10px;
+            padding-left: 14px;
+            border-left: 1px solid rgba(212, 175, 55, 0.35);
+        }
+
+        .lang-switcher-btn {
+            background: transparent;
+            color: var(--color-text-secondary);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 4px 8px;
+            cursor: pointer;
+            transition: all 0.25s var(--transition-smooth);
+        }
+
+        .lang-switcher-btn:hover,
+        .lang-switcher-btn.active {
+            color: var(--color-accent-gold);
+            border-color: var(--color-accent-gold);
+            background: rgba(212, 175, 55, 0.14);
         }
 
         /* Hero Section */
@@ -273,12 +303,7 @@
             position: relative;
             width: 100%;
             height: clamp(320px, 56vw, 620px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 14px;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.45) 70%);
             overflow: hidden;
-            -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
         }
 
         #pcModelCanvas {
@@ -431,6 +456,102 @@
             position: absolute;
             left: 0;
             color: var(--color-accent-gold);
+        }
+
+        /* Services Section */
+        #services {
+            background: var(--color-primary);
+        }
+
+        .services-grid {
+            margin-top: 10px;
+        }
+
+        .service-card {
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .service-card h3 {
+            margin-bottom: 18px;
+            line-height: 1.35;
+        }
+
+        .service-price {
+            font-family: var(--font-header);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            letter-spacing: 0.3px;
+        }
+
+        /* Universities Section */
+        #universities {
+            background: linear-gradient(180deg, var(--color-primary) 0%, rgba(10, 14, 20, 0.95) 100%);
+        }
+
+        .universities-slider {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        }
+
+        .universities-track {
+            display: flex;
+            gap: 18px;
+            width: max-content;
+            animation: universities-scroll 36s linear infinite;
+            will-change: transform;
+        }
+
+        .universities-slider:hover .universities-track {
+            animation-play-state: paused;
+        }
+
+        .university-logo-card {
+            min-width: 170px;
+            height: 130px;
+            border-radius: 14px;
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            background: rgba(255, 255, 255, 0.06);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 10px;
+        }
+
+        .university-logo-card img {
+            width: 120px;
+            height: 76px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: #ffffff;
+            padding: 6px;
+        }
+
+        .university-logo-card span {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: 0.3px;
+        }
+
+        @keyframes universities-scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc(-50% - 9px));
+            }
         }
 
         /* Projects Section */
@@ -971,6 +1092,16 @@
                 display: flex;
             }
 
+            .lang-switcher {
+                margin-left: 12px;
+                padding-left: 12px;
+            }
+
+            .lang-switcher-btn {
+                font-size: 10px;
+                padding: 4px 7px;
+            }
+
             section {
                 padding: 80px 30px;
             }
@@ -1053,7 +1184,6 @@
 
             .pc-canvas-wrap {
                 height: clamp(260px, 68vw, 420px);
-                border-radius: 12px;
             }
         }
 
