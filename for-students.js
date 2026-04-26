@@ -99,7 +99,7 @@ if (particleCanvas) {
             p.speedX = Math.max(-maxSpeed, Math.min(maxSpeed, p.speedX));
             p.speedY = Math.max(-maxSpeed, Math.min(maxSpeed, p.speedY));
 
-            ctx.fillStyle = `rgba(212,175,55,${p.alpha})`;
+            ctx.fillStyle = `rgba(73,147,250,${p.alpha})`;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             ctx.fill();
@@ -112,7 +112,7 @@ if (particleCanvas) {
 
                 if (distSq < connectionDist * connectionDist) {
                     const distance = Math.sqrt(distSq);
-                    ctx.strokeStyle = `rgba(212,175,55,${0.2 * (1 - distance / connectionDist)})`;
+                    ctx.strokeStyle = `rgba(73,147,250,${0.2 * (1 - distance / connectionDist)})`;
                     ctx.lineWidth = 0.5;
                     ctx.beginPath();
                     ctx.moveTo(p.x, p.y);

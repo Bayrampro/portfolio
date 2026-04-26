@@ -117,7 +117,7 @@ if (canvas) {
             p.speedX = Math.max(-maxSpeed, Math.min(maxSpeed, p.speedX));
             p.speedY = Math.max(-maxSpeed, Math.min(maxSpeed, p.speedY));
 
-            ctx.fillStyle = `rgba(212,175,55,${p.alpha})`;
+            ctx.fillStyle = `rgba(73,147,250,${p.alpha})`;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, 6.2832);
             ctx.fill();
@@ -131,7 +131,7 @@ if (canvas) {
                 const distSq = cdx * cdx + cdy * cdy;
                 if (distSq < connectionDist * connectionDist) {
                     const d = Math.sqrt(distSq);
-                    ctx.strokeStyle = `rgba(212,175,55,${0.2 * (1 - d / connectionDist)})`;
+                    ctx.strokeStyle = `rgba(73,147,250,${0.2 * (1 - d / connectionDist)})`;
                     ctx.lineWidth = 0.5;
                     ctx.beginPath();
                     ctx.moveTo(p.x, p.y);
@@ -225,7 +225,7 @@ document.querySelectorAll('.cta-button, .submit-button').forEach(button => {
         ripple.style.width = ripple.style.height = size + 'px';
         ripple.style.left = x + 'px';
         ripple.style.top = y + 'px';
-        ripple.style.background = 'radial-gradient(circle, rgba(212, 175, 55, 0.6) 0%, transparent 70%)';
+        ripple.style.background = 'radial-gradient(circle, rgba(73, 147, 250, 0.6) 0%, transparent 70%)';
         ripple.style.borderRadius = '50%';
         ripple.style.pointerEvents = 'none';
         ripple.style.animation = 'ripple 0.6s ease-out';
@@ -494,7 +494,7 @@ const observer = new IntersectionObserver((entries) => {
                     
                     // Liquid underline effect
                     gsap.to(link, {
-                        textShadow: '0 0 10px rgba(212, 175, 55, 0.5)',
+                        textShadow: '0 0 10px rgba(73, 147, 250, 0.5)',
                         duration: 0.3
                     });
                 }
