@@ -3,6 +3,7 @@
     const SUPPORTED_LANGS = ['en', 'ru', 'tk'];
     const DEFAULT_LANG = 'en';
     let businessProjectDefaults = null;
+    let businessTimelineDefaults = null;
 
     const BUSINESS_PROJECT_TRANSLATIONS = {
         ru: [
@@ -283,6 +284,113 @@
         ]
     };
 
+    const BUSINESS_TIMELINE_TRANSLATIONS = {
+        ru: {
+            frontend: [
+                {
+                    date: 'Авг 2025 – Настоящее время',
+                    role: 'Flutter-разработчик — CRM Product Team',
+                    body: 'Разработали кроссплатформенную CRM с нуля (iOS/Android/Web) с <strong>80%+ переиспользованием кода</strong>, запустили за <strong>5 месяцев</strong>, достигли <strong>4 500+ пользователей</strong> и рейтинга <strong>4.8</strong>.',
+                    highlights: [
+                        'Архитектура offline-sync (Drift + WebSockets + WorkManager): успех синхронизации <strong>99.2%</strong>, потери данных снижены на <strong>95%</strong>, стабильная работа до <strong>14 дней</strong> офлайн',
+                        'Рефакторинг (Clean Architecture + Riverpod): cold start ускорен на <strong>40%</strong> (с 2.8с до 1.7с), падения снижены на <strong>75%</strong>, время CI/CD сборок сокращено на <strong>35%</strong>',
+                        'Сделали 50+ адаптивных экранов и общую UI-библиотеку: покрытие тестами выросло до <strong>82%</strong>, регрессионные баги снижены на <strong>60%</strong>, скорость поставки фич выросла на <strong>30%</strong>'
+                    ]
+                },
+                {
+                    date: 'Ноя 2023 – Июл 2025',
+                    role: 'Flutter-разработчик — KAYAK (Москва)',
+                    body: 'Работал над кроссплатформенным приложением для бронирования поездок (авиабилеты/отели/авто) с аудиторией <strong>120 000+ MAU</strong> и <strong>500 000+ установок</strong>.',
+                    highlights: [
+                        'Оптимизация поиска и больших списков (pagination/caching/virtualization): время отклика снижено на <strong>40%</strong>, стабильные <strong>60 FPS</strong>, потребление RAM снижено на <strong>35%</strong>',
+                        'Интеграция платежей и динамического ценообразования: доля неуспешных транзакций снижена на <strong>22%</strong>, конверсия бронирований выросла на <strong>15%</strong>',
+                        'Миграция архитектуры + автоматизация релизов: количество support-тикетов снижено на <strong>30%</strong>, цикл релиза сокращен на <strong>65%</strong>, crash-free rate достиг <strong>99.6%</strong>'
+                    ]
+                },
+                {
+                    date: 'Янв 2022 – Ноя 2023',
+                    role: 'Flutter-разработчик — Vade Apps',
+                    body: 'Разрабатывал высоконагруженное образовательное приложение с AI-функциями для <strong>90 000+ MAU</strong> и рейтингом <strong>4.7</strong>.',
+                    highlights: [
+                        'AI-ассистент + стриминг ответов (WebSockets/SSE): время ответа снижено на <strong>45%</strong>, нагрузка на backend снижена на <strong>30%</strong>',
+                        'Оптимизация рендера и производительности: стабильные <strong>60 FPS</strong>, потребление RAM снижено на <strong>40%</strong>, инициализация экранов ускорена на <strong>50%</strong>',
+                        'Offline + качество релизов: успех sync <strong>99.8%</strong>, восстановление сессии менее чем за <strong>1с</strong>, crash-free users <strong>99.7%</strong>, время hotfix сокращено с <strong>3 дней до 4 часов</strong>, охват вырос на <strong>20%</strong> после i18n/a11y'
+                    ]
+                },
+                {
+                    date: 'Итог',
+                    role: 'Результаты кроссплатформенной разработки',
+                    body: '<strong>10+ релизов</strong> в App Store и Google Play, совокупная аудитория <strong>250 000+ MAU</strong>, с пиковым crash-free уровнем до <strong>99.6%</strong>.',
+                    highlights: []
+                }
+            ],
+            backend: [
+                {
+                    date: 'Дек 2024 – Мар 2026',
+                    role: 'Golang-разработчик — Wabrum (Туркменистан)',
+                    body: 'Работал над Go-backend маркетплейса Wabrum, поддерживал REST API на Gin и выпускал production-обновления для ключевых пользовательских и коммерческих сценариев.'
+                },
+                {
+                    date: 'Янв 2025 – Апр 2026',
+                    role: 'Преподаватель программирования (WEB-разработка) — «Академия ТОП» (Москва)',
+                    body: 'Преподавал WEB-разработку (HTML, CSS, JavaScript и основы frontend), вел практические занятия и сопровождал студенческие проекты от идеи до итоговой презентации.'
+                }
+            ]
+        },
+        tk: {
+            frontend: [
+                {
+                    date: 'Awg 2025 – Häzirki wagt',
+                    role: 'Flutter programmist — CRM Product Team',
+                    body: 'Kross-platforma CRM-ni (iOS/Android/Web) noldan gurduk: <strong>80%+ kod gaýtadan ulanylyşy</strong>, goýberiş möhleti <strong>5 aý</strong>, <strong>4 500+ ulanyjy</strong> we dükanda <strong>4.8</strong> bahasy.',
+                    highlights: [
+                        'Offline sync arhitekturasy (Drift + WebSockets + WorkManager): sync üstünlik derejesi <strong>99.2%</strong>, maglumat ýitgi <strong>95%</strong> azaldy, offline <strong>14 güne</strong> çenli durnukly işledi',
+                        'Refaktor (Clean Architecture + Riverpod): cold start <strong>40%</strong> tizleşdi (2.8s-den 1.7s-e), crash sany <strong>75%</strong> azaldy, CI/CD build wagty <strong>35%</strong> gysgaldy',
+                        '50+ adaptive ekran we umumy UI library: test coverage <strong>82%</strong>-e ýetdi, regressiw buglar <strong>60%</strong> azaldy, feature goýberiş tizligi <strong>30%</strong> artdy'
+                    ]
+                },
+                {
+                    date: 'Noý 2023 – Iýl 2025',
+                    role: 'Flutter programmist — KAYAK (Moskwa)',
+                    body: 'Uçuş/myhmanhana/awtoulag bronlamak üçin kross-platforma syýahat programmasynda işledim: <strong>120 000+ MAU</strong> we <strong>500 000+ install</strong>.',
+                    highlights: [
+                        'Gözleg we uly sanaw optimizasiýasy (pagination/caching/virtualization): jogap wagty <strong>40%</strong> azaldy, durnukly <strong>60 FPS</strong>, RAM ulanylyşy <strong>35%</strong> azaldy',
+                        'Töleg we dynamic pricing integrasiýasy: şowsuz tranzaksiýalar <strong>22%</strong> azaldy, bron konwersiýasy <strong>15%</strong> artdy',
+                        'Arhitektura migrasiýasy + release awtomatizasiýasy: support tiketi <strong>30%</strong> azaldy, release-a sarp edilen wagt <strong>65%</strong> gysgaldy, crash-free derejesi <strong>99.6%</strong>-e ýetdi'
+                    ]
+                },
+                {
+                    date: 'Ýan 2022 – Noý 2023',
+                    role: 'Flutter programmist — Vade Apps',
+                    body: 'AI funksiýaly ýokary ýükli bilim programmasyny işläp taýýarladym: <strong>90 000+ MAU</strong> we <strong>4.7</strong> baha.',
+                    highlights: [
+                        'AI assistant + streamed jogaplar (WebSockets/SSE): jogap wagty <strong>45%</strong> azaldy, backend ýüki <strong>30%</strong> peseldi',
+                        'Render we öndürijilik optimizasiýasy: durnukly <strong>60 FPS</strong>, RAM ulanylyşy <strong>40%</strong> azaldy, ekran başlangyjy <strong>50%</strong> tizleşdi',
+                        'Offline + release hili: sync üstünligi <strong>99.8%</strong>, sessiýa dikeldişi <strong>1s</strong>-den pes, crash-free users <strong>99.7%</strong>, hotfix wagty <strong>3 günden 4 sagada</strong> çenli azaldy, i18n/a11y-den soň reach <strong>20%</strong> artdy'
+                    ]
+                },
+                {
+                    date: 'Netije',
+                    role: 'Kross-platforma goýberiş netijeleri',
+                    body: 'App Store we Google Play-de <strong>10+ release</strong>, umumy <strong>250 000+ MAU</strong>, iň ýokary crash-free derejesi <strong>99.6%</strong>.',
+                    highlights: []
+                }
+            ],
+            backend: [
+                {
+                    date: 'Dek 2024 – Mar 2026',
+                    role: 'Golang programmist — Wabrum (Türkmenistan)',
+                    body: 'Wabrum marketplace-i üçin Go backend üstünde işledim, Gin-däki REST API-lary goldadym we esasy ulanyjy/commerce akymlary üçin production täzelenmeleri goýberdim.'
+                },
+                {
+                    date: 'Ýan 2025 – Apr 2026',
+                    role: 'Web programmirleme mugallymy — TOP Akademiýa (Moskwa)',
+                    body: 'Web programmirleme (HTML, CSS, JavaScript we frontend esaslary) boýunça sapak berdim, praktiki okuwlary alyp bardym we talyp proýektlerini ideýadan ahyrky prezentasiýa çenli ugrukdyrdym.'
+                }
+            ]
+        }
+    };
+
     const COPY = {
         en: {
             common: {
@@ -454,6 +562,7 @@
                 timeline: {
                     title: 'Experience',
                     subtitle: 'Two development tracks across frontend and backend',
+                    switcherAria: 'Experience tracks',
                     frontend: 'Frontend (Mob+Web) dev: Bayram Annagurbanov',
                     backend: 'Backend dev: Didar Kamiljanov'
                 },
@@ -636,6 +745,7 @@
                 timeline: {
                     title: 'Опыт',
                     subtitle: 'Два направления разработки: frontend и backend',
+                    switcherAria: 'Треки опыта',
                     frontend: 'Frontend (Mob+Web): Bayram Annagurbanov',
                     backend: 'Backend: Didar Kamiljanov'
                 },
@@ -818,6 +928,7 @@
                 timeline: {
                     title: 'Tejribe',
                     subtitle: 'Frontend we backend boýunça iki ugur',
+                    switcherAria: 'Tejribe ugurlary',
                     frontend: 'Frontend (Mob+Web): Bayram Annagurbanov',
                     backend: 'Backend: Didar Kamiljanov'
                 },
@@ -947,6 +1058,7 @@
                 { selector: '#projects .section-subtitle', key: 'business.projects.subtitle' },
                 { selector: '#timeline h2', key: 'business.timeline.title' },
                 { selector: '#timeline .section-subtitle', key: 'business.timeline.subtitle' },
+                { selector: '#timeline .timeline-switcher', type: 'attr', attr: 'aria-label', key: 'business.timeline.switcherAria' },
                 { selector: '#timeline .timeline-toggle[data-timeline="frontend-track"]', key: 'business.timeline.frontend' },
                 { selector: '#timeline .timeline-toggle[data-timeline="backend-track"]', key: 'business.timeline.backend' },
                 { selector: '#contact .contact-heading', key: 'common.contact.heading' },
@@ -1127,6 +1239,79 @@
         });
     };
 
+    const captureBusinessTimelineDefaults = () => {
+        const captureTrack = (trackSelector) => {
+            const items = document.querySelectorAll(`${trackSelector} .timeline-item .timeline-content`);
+            if (!items.length) return [];
+
+            return Array.from(items).map((content) => {
+                const date = content.querySelector('h4');
+                const role = content.querySelector('.timeline-role');
+                const paragraph = content.querySelector('p');
+                const highlights = content.querySelectorAll('.timeline-highlights li');
+
+                return {
+                    date: date ? date.textContent.trim() : '',
+                    role: role ? role.innerHTML.trim() : '',
+                    body: paragraph ? paragraph.innerHTML.trim() : '',
+                    highlights: Array.from(highlights).map((item) => item.innerHTML.trim())
+                };
+            });
+        };
+
+        return {
+            frontend: captureTrack('#frontend-track'),
+            backend: captureTrack('#backend-track')
+        };
+    };
+
+    const applyBusinessTimeline = (pageName) => {
+        if (pageName !== 'business') return;
+
+        if (!businessTimelineDefaults) {
+            businessTimelineDefaults = captureBusinessTimelineDefaults();
+        }
+
+        const localizedTimeline = BUSINESS_TIMELINE_TRANSLATIONS[currentLang];
+
+        const applyTrack = (trackSelector, trackKey) => {
+            const contents = document.querySelectorAll(`${trackSelector} .timeline-item .timeline-content`);
+            if (!contents.length) return;
+
+            const fallbackItems = businessTimelineDefaults[trackKey] || [];
+            const localizedItems = localizedTimeline ? (localizedTimeline[trackKey] || []) : [];
+
+            Array.from(contents).forEach((content, index) => {
+                const fallback = fallbackItems[index] || {};
+                const source = localizedItems[index] || fallback;
+
+                const date = content.querySelector('h4');
+                if (date) date.textContent = source.date || fallback.date || '';
+
+                const role = content.querySelector('.timeline-role');
+                if (role) role.innerHTML = source.role || fallback.role || '';
+
+                const paragraph = content.querySelector('p');
+                if (paragraph) paragraph.innerHTML = source.body || fallback.body || '';
+
+                const highlightItems = content.querySelectorAll('.timeline-highlights li');
+                const sourceHighlights = Array.isArray(source.highlights) ? source.highlights : [];
+                const fallbackHighlights = Array.isArray(fallback.highlights) ? fallback.highlights : [];
+                highlightItems.forEach((item, highlightIndex) => {
+                    const value = sourceHighlights[highlightIndex] !== undefined
+                        ? sourceHighlights[highlightIndex]
+                        : fallbackHighlights[highlightIndex];
+                    if (value !== undefined) {
+                        item.innerHTML = value;
+                    }
+                });
+            });
+        };
+
+        applyTrack('#frontend-track', 'frontend');
+        applyTrack('#backend-track', 'backend');
+    };
+
     const applyBindings = (pageName) => {
         const pageBindings = PAGE_BINDINGS[pageName];
         if (!pageBindings) return;
@@ -1171,6 +1356,17 @@
             if (!titleElement) return;
             titleElement.textContent = localizedNames[index % localizedNames.length];
         });
+    };
+
+    const applyResumeDownload = (pageName) => {
+        if (pageName !== 'index') return;
+
+        const resumeButton = document.querySelector('.hero-actions .resume-button');
+        if (!resumeButton) return;
+
+        const resumeFile = currentLang === 'en' ? 'resume_en.zip' : 'resume_ru.zip';
+        resumeButton.setAttribute('href', resumeFile);
+        resumeButton.setAttribute('download', resumeFile);
     };
 
     const applyContactFallback = () => {
@@ -1234,7 +1430,9 @@
         document.documentElement.lang = currentLang;
         updateMeta(pageName);
         applyBindings(pageName);
+        applyResumeDownload(pageName);
         applyBusinessProjectCards(pageName);
+        applyBusinessTimeline(pageName);
         applyUniversityNames(pageName);
         applyContactFallback();
         applySwitcherState();

@@ -1,45 +1,50 @@
-# Abhishek Agrawal — Portfolio
+# BaDi Systems — Portfolio Website
 
-**Live Site:** [https://abhish0.github.io/My-Portfolio/](https://abhish0.github.io/My-Portfolio/)
+Multilingual portfolio website for **BaDi Systems** with separate tracks for:
+- Business services and case studies
+- Student support services
 
----
+## Pages
 
-## About
+- `index.html` — main landing page
+- `for-business.html` — business-focused page with project case studies
+- `for-students.html` — student services and achievements
 
-Personal portfolio of **Abhishek Agrawal**, Full-Stack Software Engineer with experience at Deloitte building enterprise SAP workflow systems, and independent projects in real-time multiplayer systems and scalable full-stack applications.
+## Localization
 
----
+The site supports 3 languages:
+- English (`EN`)
+- Russian (`RU`)
+- Turkmen (`TK`)
 
-## Featured Projects
+Localization is implemented in `i18n.js` with:
+- language switcher in navbar
+- per-page translations
+- localized dynamic content (typewriter text, service prices, project cards, form labels/messages)
+- persisted language in `localStorage`
 
-### Word Wala — Real-Time Multiplayer Word Game
-- **Live:** [https://word-wala-game-f7yi.vercel.app/](https://word-wala-game-f7yi.vercel.app/)
-- **GitHub:** [https://github.com/Abhish0/Word-Wala-Game](https://github.com/Abhish0/Word-Wala-Game)
-- **Stack:** React, Supabase, Web Workers, Vite, Tailwind CSS
+## Tech
 
-### Cartly — Full-Stack E-Commerce
-- **Live:** [http://cartly-env.eba-rfxmimnw.ap-southeast-2.elasticbeanstalk.com/](http://cartly-env.eba-rfxmimnw.ap-southeast-2.elasticbeanstalk.com/)
-- **GitHub:** [https://github.com/Abhish0/Cartly](https://github.com/Abhish0/Cartly)
-- **Stack:** React, Node.js, Express, Sequelize, SQLite, AWS Elastic Beanstalk
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- GSAP (animations)
+- Vanilla Tilt
 
----
+## Run locally
 
-## Tech Stack
+This is a static site. Open `index.html` directly or run any local static server from the project root.
 
-| Area | Technologies |
-|---|---|
-| Frontend | React.js, Vite, Redux, Tailwind CSS |
-| Backend | Node.js, Express.js, REST APIs, Supabase |
-| Databases | PostgreSQL, SQLite, MongoDB, Sequelize, Mongoose |
-| Cloud / Tools | AWS Elastic Beanstalk, Vercel, Render, Git, GitHub |
-| Concepts | Real-Time Systems, Web Workers, Multiplayer Sync, Trie Data Structures |
+Example:
 
----
+```bash
+python3 -m http.server 8080
+```
 
-## Contact
+Then open `http://localhost:8080`.
 
-- **Email:** agrawalabhishek2020@gmail.com
-- **LinkedIn:** [https://www.linkedin.com/in/abhishek-73468206/](https://www.linkedin.com/in/abhishek-73468206/)
-- **GitHub:** [https://github.com/Abhish0](https://github.com/Abhish0)
-- **LeetCode:** [https://leetcode.com/u/abhishag123/](https://leetcode.com/u/abhishag123/)
-- **Phone:** +91-6263884703
+## Contacts
+
+- Bayram Annagurbanov
+- GitHub: [https://github.com/Bayrampro](https://github.com/Bayrampro)
+- Telegram: [https://t.me/byprogger](https://t.me/byprogger)
