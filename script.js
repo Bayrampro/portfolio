@@ -627,15 +627,40 @@ document.querySelectorAll('.skill-card, .project-card, .cta-button, .submit-butt
 // ============================================
 // SCROLL TRIGGER REFRESH ON LOAD & RESIZE
 // ============================================
+const hidePreloader = () => {
+    const preloader = document.getElementById('preloader');
+    if (!preloader || preloader.classList.contains('hidden')) return;
+    preloader.classList.add('hidden');
+    preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
+};
+
+const waitForPcModel = () => {
+    const requiresPcModel = Boolean(globalThis.__pcModelRequired);
+    if (!requiresPcModel || globalThis.__pcModelLoaded || globalThis.__pcModelLoadFailed) {
+        return Promise.resolve();
+    }
+
+    return new Promise(resolve => {
+        let finished = false;
+        const done = () => {
+            if (finished) return;
+            finished = true;
+            window.removeEventListener('pcmodel:loaded', done);
+            window.removeEventListener('pcmodel:failed', done);
+            resolve();
+        };
+
+        window.addEventListener('pcmodel:loaded', done);
+        window.addEventListener('pcmodel:failed', done);
+
+        // Never block the page forever if model events are missed.
+        setTimeout(done, 16000);
+    });
+};
+
 window.addEventListener('load', () => {
     ScrollTrigger.refresh();
-
-    // Hide preloader
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        preloader.classList.add('hidden');
-        preloader.addEventListener('transitionend', () => preloader.remove());
-    }
+    waitForPcModel().then(hidePreloader);
 });
 
 let stResizeTimer;

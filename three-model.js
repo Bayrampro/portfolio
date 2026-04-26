@@ -11,6 +11,19 @@ if (!canvas || !section) {
 } else {
   globalThis.__pcModelBooted = true;
   let started = false;
+  let modelFinished = false;
+
+  const dispatchModelEvent = (eventName) => {
+    window.dispatchEvent(new CustomEvent(eventName));
+  };
+
+  const finishModelLoading = (isSuccess) => {
+    if (modelFinished) return;
+    modelFinished = true;
+    globalThis.__pcModelLoaded = isSuccess;
+    globalThis.__pcModelLoadFailed = !isSuccess;
+    dispatchModelEvent(isSuccess ? "pcmodel:loaded" : "pcmodel:failed");
+  };
 
   const startModel = () => {
     if (started) return;
@@ -84,7 +97,6 @@ if (!canvas || !section) {
       const progress = total ? Math.round((loaded / total) * 100) : 0;
       loaderEl.textContent = `Loading 3D model... ${progress}%`;
     };
-    manager.onLoad = () => {};
 
     const gltfLoader = new GLTFLoader(manager);
     gltfLoader.load(
@@ -94,7 +106,7 @@ if (!canvas || !section) {
         model.position.set(0.25, -2.25, -1.5);
         model.rotation.set(0.01, -0.15, -0.1);
         scene.add(model);
-        globalThis.__pcModelLoaded = true;
+        finishModelLoading(true);
         loaderEl?.classList.add("hidden");
       },
       undefined,
@@ -105,6 +117,7 @@ if (!canvas || !section) {
             ? `Failed to load 3D model (HTTP ${status})`
             : "Failed to load 3D model";
         }
+        finishModelLoading(false);
       }
     );
 
@@ -124,7 +137,11 @@ if (!canvas || !section) {
     animate();
   };
 
-  if ("IntersectionObserver" in window) {
+  const shouldStartImmediately = Boolean(document.getElementById("preloader"));
+
+  if (shouldStartImmediately) {
+    startModel();
+  } else if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
