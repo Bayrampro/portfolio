@@ -1,7 +1,7 @@
 (() => {
     const STORAGE_KEY = 'badi-lang';
     const SUPPORTED_LANGS = ['en', 'ru', 'tk'];
-    const DEFAULT_LANG = 'en';
+    const DEFAULT_LANG = 'ru';
     let businessProjectDefaults = null;
     let businessTimelineDefaults = null;
 
@@ -1448,9 +1448,6 @@
         } catch (error) {
             // Ignore storage issues and continue with fallback resolution.
         }
-
-        const htmlLang = (document.documentElement.lang || '').toLowerCase();
-        if (SUPPORTED_LANGS.includes(htmlLang)) return htmlLang;
 
         return DEFAULT_LANG;
     };
