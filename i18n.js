@@ -4,6 +4,21 @@
     const DEFAULT_LANG = 'ru';
     let businessProjectDefaults = null;
     let businessTimelineDefaults = null;
+    const PAGE_FILES = {
+        index: 'index.html',
+        students: 'for-students.html',
+        business: 'for-business.html'
+    };
+    const LANG_TO_OG_LOCALE = {
+        en: 'en_US',
+        ru: 'ru_RU',
+        tk: 'tk_TM'
+    };
+    const SOCIAL_LINKS = [
+        'https://github.com/Bayrampro',
+        'https://www.linkedin.com/in/bayram-annagurbanov-flutter',
+        'https://t.me/byprogger'
+    ];
 
     const BUSINESS_PROJECT_TRANSLATIONS = {
         ru: [
@@ -1084,6 +1099,65 @@
         return 'index';
     };
 
+    const getPagePath = (pageName) => {
+        const fileName = PAGE_FILES[pageName] || PAGE_FILES.index;
+        const pathname = globalThis.location && typeof globalThis.location.pathname === 'string'
+            ? globalThis.location.pathname
+            : `/${fileName}`;
+        const lastSlashIndex = pathname.lastIndexOf('/');
+        const directory = lastSlashIndex >= 0 ? pathname.slice(0, lastSlashIndex + 1) : '/';
+        return `${directory}${fileName}`;
+    };
+
+    const toAbsoluteUrl = (value) => {
+        if (!value) return value;
+        if (/^https?:\/\//i.test(value)) return value;
+
+        const origin = globalThis.location && /^https?:$/.test(globalThis.location.protocol)
+            ? globalThis.location.origin
+            : '';
+        return origin ? new URL(value, `${origin}/`).toString() : value;
+    };
+
+    const ensureHeadMeta = (selector, createFn) => {
+        let element = document.head.querySelector(selector);
+        if (element) return element;
+
+        element = createFn();
+        document.head.append(element);
+        return element;
+    };
+
+    const ensureCanonicalLink = () => {
+        return ensureHeadMeta('link[rel="canonical"]', () => {
+            const link = document.createElement('link');
+            link.setAttribute('rel', 'canonical');
+            return link;
+        });
+    };
+
+    const ensureAlternateLinksContainer = () => {
+        const tagged = Array.from(document.head.querySelectorAll('link[data-badi-seo-alternate="true"]'));
+        if (tagged.length) return tagged;
+
+        const existing = Array.from(document.head.querySelectorAll('link[rel="alternate"][hreflang]'));
+        if (existing.length) {
+            existing.forEach((link) => {
+                link.setAttribute('data-badi-seo-alternate', 'true');
+            });
+            return existing;
+        }
+
+        SUPPORTED_LANGS.concat('x-default').forEach(() => {
+            const link = document.createElement('link');
+            link.setAttribute('rel', 'alternate');
+            link.setAttribute('data-badi-seo-alternate', 'true');
+            document.head.append(link);
+        });
+
+        return Array.from(document.head.querySelectorAll('link[data-badi-seo-alternate="true"]'));
+    };
+
     const getValue = (obj, path) => {
         return path.split('.').reduce((acc, key) => (acc && key in acc ? acc[key] : undefined), obj);
     };
@@ -1114,6 +1188,196 @@
 
         const ogDescriptionMeta = document.querySelector('meta[property="og:description"]');
         if (ogDescriptionMeta) ogDescriptionMeta.setAttribute('content', ogDescription);
+
+        const twitterTitleMeta = document.querySelector('meta[name="twitter:title"]');
+        if (twitterTitleMeta) twitterTitleMeta.setAttribute('content', ogTitle);
+
+        const twitterDescriptionMeta = document.querySelector('meta[name="twitter:description"]');
+        if (twitterDescriptionMeta) twitterDescriptionMeta.setAttribute('content', ogDescription);
+    };
+
+    const syncLanguageInUrl = (pageName) => {
+        if (!globalThis.history || !globalThis.location) return;
+        if (!/^https?:$/.test(globalThis.location.protocol)) return;
+
+        const currentUrl = new URL(globalThis.location.href);
+        const expectedPath = getPagePath(pageName);
+        if (currentUrl.pathname !== expectedPath) {
+            currentUrl.pathname = expectedPath;
+        }
+
+        if (currentLang === DEFAULT_LANG) {
+            currentUrl.searchParams.delete('lang');
+        } else {
+            currentUrl.searchParams.set('lang', currentLang);
+        }
+
+        const nextUrl = `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`;
+        const currentComparable = `${globalThis.location.pathname}${globalThis.location.search}${globalThis.location.hash}`;
+        if (nextUrl !== currentComparable) {
+            globalThis.history.replaceState({}, '', nextUrl);
+        }
+    };
+
+    const applySeoTags = (pageName) => {
+        const pagePath = getPagePath(pageName);
+        const canonicalPath = pagePath;
+        const canonicalUrl = toAbsoluteUrl(canonicalPath);
+
+        const canonicalLink = ensureCanonicalLink();
+        canonicalLink.setAttribute('href', canonicalUrl);
+
+        const robotsMeta = ensureHeadMeta('meta[name="robots"]', () => {
+            const meta = document.createElement('meta');
+            meta.setAttribute('name', 'robots');
+            return meta;
+        });
+        robotsMeta.setAttribute('content', 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
+
+        const ogUrlMeta = ensureHeadMeta('meta[property="og:url"]', () => {
+            const meta = document.createElement('meta');
+            meta.setAttribute('property', 'og:url');
+            return meta;
+        });
+        ogUrlMeta.setAttribute('content', canonicalUrl);
+
+        const ogSiteMeta = ensureHeadMeta('meta[property="og:site_name"]', () => {
+            const meta = document.createElement('meta');
+            meta.setAttribute('property', 'og:site_name');
+            return meta;
+        });
+        ogSiteMeta.setAttribute('content', 'BaDi Systems');
+
+        const ogLocaleMeta = ensureHeadMeta('meta[property="og:locale"]', () => {
+            const meta = document.createElement('meta');
+            meta.setAttribute('property', 'og:locale');
+            return meta;
+        });
+        ogLocaleMeta.setAttribute('content', LANG_TO_OG_LOCALE[currentLang] || LANG_TO_OG_LOCALE[DEFAULT_LANG]);
+
+        const twitterUrlMeta = ensureHeadMeta('meta[name="twitter:url"]', () => {
+            const meta = document.createElement('meta');
+            meta.setAttribute('name', 'twitter:url');
+            return meta;
+        });
+        twitterUrlMeta.setAttribute('content', canonicalUrl);
+
+        const languageMeta = ensureHeadMeta('meta[name="language"]', () => {
+            const meta = document.createElement('meta');
+            meta.setAttribute('name', 'language');
+            return meta;
+        });
+        languageMeta.setAttribute('content', currentLang);
+
+        const alternateLangs = SUPPORTED_LANGS.concat('x-default');
+        const alternateLinks = ensureAlternateLinksContainer();
+
+        while (alternateLinks.length < alternateLangs.length) {
+            const link = document.createElement('link');
+            link.setAttribute('rel', 'alternate');
+            link.setAttribute('data-badi-seo-alternate', 'true');
+            document.head.append(link);
+            alternateLinks.push(link);
+        }
+
+        alternateLinks.forEach((link, index) => {
+            const lang = alternateLangs[index];
+            if (!lang) {
+                link.remove();
+                return;
+            }
+            const localizedPath = lang === 'x-default'
+                ? canonicalPath
+                : `${pagePath}?lang=${lang}`;
+            link.setAttribute('hreflang', lang);
+            link.setAttribute('href', toAbsoluteUrl(localizedPath));
+        });
+
+        const alternateLocaleTags = Array.from(document.head.querySelectorAll('meta[property="og:locale:alternate"]'));
+        const expectedAlternateLocales = SUPPORTED_LANGS
+            .filter((lang) => lang !== currentLang)
+            .map((lang) => LANG_TO_OG_LOCALE[lang])
+            .filter(Boolean);
+
+        while (alternateLocaleTags.length < expectedAlternateLocales.length) {
+            const meta = document.createElement('meta');
+            meta.setAttribute('property', 'og:locale:alternate');
+            document.head.append(meta);
+            alternateLocaleTags.push(meta);
+        }
+
+        alternateLocaleTags.forEach((meta, index) => {
+            const value = expectedAlternateLocales[index];
+            if (!value) {
+                meta.remove();
+                return;
+            }
+            meta.setAttribute('content', value);
+        });
+
+        ['meta[property="og:image"]', 'meta[name="twitter:image"]'].forEach((selector) => {
+            const meta = document.head.querySelector(selector);
+            if (!meta) return;
+            const currentValue = meta.getAttribute('content');
+            if (!currentValue) return;
+            meta.setAttribute('content', toAbsoluteUrl(currentValue));
+        });
+    };
+
+    const applyStructuredData = (pageName) => {
+        const config = PAGE_BINDINGS[pageName] && PAGE_BINDINGS[pageName].meta;
+        if (!config) return;
+
+        const pagePath = getPagePath(pageName);
+        const pageUrl = toAbsoluteUrl(pagePath);
+        const organizationId = toAbsoluteUrl('/#organization');
+        const websiteId = toAbsoluteUrl('/#website');
+        const webPageId = `${pageUrl}#webpage`;
+
+        const graph = [
+            {
+                '@type': 'Organization',
+                '@id': organizationId,
+                name: 'BaDi Systems',
+                url: toAbsoluteUrl('/index.html'),
+                logo: {
+                    '@type': 'ImageObject',
+                    url: toAbsoluteUrl('/assets/images/index-og.png')
+                },
+                sameAs: SOCIAL_LINKS
+            },
+            {
+                '@type': 'WebSite',
+                '@id': websiteId,
+                url: toAbsoluteUrl('/index.html'),
+                name: 'BaDi Systems',
+                inLanguage: currentLang,
+                publisher: { '@id': organizationId }
+            },
+            {
+                '@type': 'WebPage',
+                '@id': webPageId,
+                url: pageUrl,
+                name: t(config.title),
+                description: t(config.description),
+                inLanguage: currentLang,
+                isPartOf: { '@id': websiteId },
+                about: { '@id': organizationId }
+            }
+        ];
+
+        const jsonLd = {
+            '@context': 'https://schema.org',
+            '@graph': graph
+        };
+
+        const script = ensureHeadMeta('script#badi-structured-data[type="application/ld+json"]', () => {
+            const el = document.createElement('script');
+            el.setAttribute('id', 'badi-structured-data');
+            el.setAttribute('type', 'application/ld+json');
+            return el;
+        });
+        script.textContent = JSON.stringify(jsonLd);
     };
 
     const setTextAfterIcon = (element, value) => {
@@ -1428,7 +1692,10 @@
     const applyLanguage = () => {
         const pageName = getPageName();
         document.documentElement.lang = currentLang;
+        syncLanguageInUrl(pageName);
         updateMeta(pageName);
+        applySeoTags(pageName);
+        applyStructuredData(pageName);
         applyBindings(pageName);
         applyResumeDownload(pageName);
         applyBusinessProjectCards(pageName);

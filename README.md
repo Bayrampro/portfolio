@@ -43,6 +43,23 @@ python3 -m http.server 8080
 
 Then open `http://localhost:8080`.
 
+## SEO setup
+
+The project includes:
+- canonical and hreflang tags for all pages
+- Open Graph and Twitter meta tags
+- JSON-LD structured data (`Organization`, `WebSite`, `WebPage`)
+- `robots.txt` at the project root
+
+To generate production `sitemap.xml` and `robots.txt` with your real domain:
+
+```bash
+bash scripts/generate-seo-files.sh https://your-domain.example
+```
+
+For GitHub Actions deploy, set repository secret or variable `SITE_URL` (for example `https://your-domain.example`).  
+Then the deploy workflow will auto-generate SEO files before rsync.
+
 ## Contacts
 
 - Bayram Annagurbanov

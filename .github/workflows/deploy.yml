@@ -51,6 +51,17 @@ jobs:
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
+      - name: Generate sitemap and robots (optional)
+        env:
+          SITE_URL: ${{ secrets.SITE_URL || vars.SITE_URL }}
+        run: |
+          set -euo pipefail
+          if [ -n "${SITE_URL:-}" ]; then
+            bash scripts/generate-seo-files.sh "$SITE_URL"
+          else
+            echo "SITE_URL is not set; using checked-in robots.txt without sitemap URL."
+          fi
+
       - name: Deploy static files with rsync
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
