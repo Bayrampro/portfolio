@@ -147,7 +147,7 @@ const defaultPhrases = [
     'Diploma theses.',
     'Lab reports.',
     'Coursework projects.',
-    'And much more.'
+    'IT disciplines only.'
 ];
 let phrases = (i18n && i18n.getPhrases('students').length) ? i18n.getPhrases('students') : defaultPhrases;
 

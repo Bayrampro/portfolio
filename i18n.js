@@ -472,9 +472,9 @@
             students: {
                 meta: {
                     title: 'For Students | BaDi Systems',
-                    description: 'For Students: support for essays, theses, lab works, and coursework projects.',
+                    description: 'For Students: support for essays, theses, lab works, and coursework projects in IT disciplines only.',
                     ogTitle: 'For Students | BaDi Systems',
-                    ogDescription: 'Student support: essays, theses, lab works, coursework projects, and more.'
+                    ogDescription: 'Student support for academic work in IT disciplines: essays, theses, lab works, and coursework projects.'
                 },
                 nav: {
                     home: 'Home',
@@ -486,11 +486,11 @@
                 },
                 hero: {
                     title: 'For Students',
-                    subtitle: 'Student support and guidance for academic work'
+                    subtitle: 'Student support and guidance for academic work in IT disciplines only'
                 },
                 services: {
                     title: 'Services',
-                    subtitle: 'Student support services and pricing',
+                    subtitle: 'Student support services in IT disciplines and pricing',
                     thesis: 'Thesis',
                     thesisPrice: 'from 5 000 ₽',
                     coursework: 'Coursework Project',
@@ -508,7 +508,7 @@
                 },
                 universities: {
                     title: 'Universities We Supported',
-                    subtitle: 'We have helped students from leading Russian universities complete academic projects and course assignments.',
+                    subtitle: 'We have helped students from leading Russian universities complete academic projects and course assignments in IT disciplines.',
                     names: [
                         'AGU',
                         'Belgorod State University',
@@ -528,18 +528,84 @@
                 achievements: {
                     title: 'Achievements',
                     subtitle: 'Academic impact backed by real delivery metrics',
-                    a1Title: '1,000+ Student Works Delivered',
-                    a1Body: 'We helped students complete <strong>420+ essays</strong>, <strong>330+ lab assignments</strong>, <strong>190+ coursework projects</strong>, and <strong>85+ diploma theses</strong> with strong structure, research quality, and on-time delivery.',
+                    a1Title: '1,000+ Student Works in IT Disciplines Delivered',
+                    a1Body: 'We helped students complete <strong>420+ essays</strong>, <strong>330+ lab assignments</strong>, <strong>190+ coursework projects</strong>, and <strong>85+ diploma theses</strong> in IT disciplines with strong structure, research quality, and on-time delivery.',
                     a1Link: 'Discuss Your Task →',
                     a2Title: '95% Top-Grade Success Rate',
                     a2Body: '<strong>95%</strong> of submitted works were graded as <strong>5 / A-level</strong>. Our guidance focuses on clear methodology, correct formatting, and defense-ready materials that help students present confidently.'
+                },
+                testimonials: {
+                    title: 'Student Reviews',
+                    subtitle: 'Feedback from students we supported on IT coursework, labs, and thesis projects.',
+                    items: [
+                        {
+                            name: 'Алина Соколова',
+                            university: 'Университет ИТМО',
+                            text: 'Структура диплома стала намного понятнее, а практическая часть по backend-архитектуре наконец выглядела цельно и уверенно для защиты.'
+                        },
+                        {
+                            name: 'Илья Морозов',
+                            university: 'МГУ им. Ломоносова',
+                            text: 'Мне помогли поэтапно собрать курсовой проект по веб-разработке: от требований до демо, при этом не потерялась техническая глубина.'
+                        },
+                        {
+                            name: 'Виктория Белова',
+                            university: 'Санкт-Петербургский государственный университет',
+                            text: 'Лабораторные по базам данных объяснили простым языком, а итоговый отчет получился аккуратным, точным и удобным для сдачи.'
+                        },
+                        {
+                            name: 'Тимур Абдуллаев',
+                            university: 'РУДН',
+                            text: 'Больше всего понравился баланс между помощью по коду и объяснениями. Я действительно понял, как работает решение, а не просто отправил файлы.'
+                        },
+                        {
+                            name: 'Екатерина Орлова',
+                            university: 'Казанский федеральный университет',
+                            text: 'Курсовой проект по мобильной разработке хорошо дотянули: архитектура, скриншоты, пояснения и оформление стали соответствовать требованиям кафедры.'
+                        },
+                        {
+                            name: 'Даниил Киселев',
+                            university: 'СКФУ',
+                            text: 'Слабые места в практической работе по API нашли очень быстро и помогли превратить сырой черновик в сильную академическую сдачу.'
+                        },
+                        {
+                            name: 'Мария Жукова',
+                            university: 'Воронежский государственный университет',
+                            text: 'Обратная связь была подробной и спокойной. Особенно ценной оказалась помощь с диаграммами, логикой интерфейса и финальной презентацией.'
+                        },
+                        {
+                            name: 'Никита Лебедев',
+                            university: 'Волгоградский государственный университет',
+                            text: 'В дипломном проекте по программной инженерии усилили обоснование решений и визуальную часть, и работа стала выглядеть заметно сильнее.'
+                        },
+                        {
+                            name: 'София Громова',
+                            university: 'Белгородский государственный университет',
+                            text: 'После доработок отчет по проекту информационной системы выглядел намного профессиональнее, особенно разделы анализа и реализации.'
+                        },
+                        {
+                            name: 'Артем Карпов',
+                            university: 'КБГУ',
+                            text: 'Курсовая по frontend стала гораздо убедительнее после разбора интерфейса и переработанного объяснения структуры компонентов.'
+                        },
+                        {
+                            name: 'Полина Назарова',
+                            university: 'Кубанский государственный университет',
+                            text: 'Помогли связать практическую часть, комментарии к коду и документацию так, что задание по machine learning наконец стало целостным.'
+                        },
+                        {
+                            name: 'Руслан Темирханов',
+                            university: 'КЧГУ',
+                            text: 'Поддержка по лабораторным по программированию сильно сэкономила время. Все оформили структурно и под стандарты нашей кафедры.'
+                        }
+                    ]
                 },
                 typewriter: [
                     'Essays.',
                     'Diploma theses.',
                     'Lab reports.',
                     'Coursework projects.',
-                    'And much more.'
+                    'IT disciplines only.'
                 ]
             },
             business: {
@@ -655,9 +721,9 @@
             students: {
                 meta: {
                     title: 'Для студентов | BaDi Systems',
-                    description: 'Поддержка студентов: рефераты, дипломные, лабораторные и курсовые работы.',
+                    description: 'Поддержка студентов только по IT-направлениям: рефераты, дипломные, лабораторные и курсовые работы.',
                     ogTitle: 'Для студентов | BaDi Systems',
-                    ogDescription: 'Помощь студентам: рефераты, дипломные, лабораторные, курсовые и многое другое.'
+                    ogDescription: 'Помощь студентам только по IT-направлениям: рефераты, дипломные, лабораторные и курсовые работы.'
                 },
                 nav: {
                     home: 'Главная',
@@ -669,11 +735,11 @@
                 },
                 hero: {
                     title: 'Для студентов',
-                    subtitle: 'Поддержка и сопровождение учебных работ'
+                    subtitle: 'Поддержка и сопровождение учебных работ только по IT-направлениям'
                 },
                 services: {
                     title: 'Услуги',
-                    subtitle: 'Форматы поддержки студентов и стоимость',
+                    subtitle: 'Форматы поддержки по IT-дисциплинам и стоимость',
                     thesis: 'Дипломная работа',
                     thesisPrice: 'от 5 000 ₽',
                     coursework: 'Курсовой проект',
@@ -691,7 +757,7 @@
                 },
                 universities: {
                     title: 'Университеты, с которыми мы работали',
-                    subtitle: 'Мы помогали студентам ведущих российских вузов в подготовке учебных проектов и курсовых работ.',
+                    subtitle: 'Мы помогали студентам ведущих российских вузов в подготовке учебных проектов и работ по IT-направлениям.',
                     names: [
                         'АГУ',
                         'Белгородский государственный университет',
@@ -711,18 +777,84 @@
                 achievements: {
                     title: 'Достижения',
                     subtitle: 'Академические результаты, подтвержденные реальными метриками',
-                    a1Title: '1 000+ выполненных студенческих работ',
-                    a1Body: 'Мы помогли выполнить более <strong>420 рефератов</strong>, <strong>330 лабораторных</strong>, <strong>190 курсовых проектов</strong> и <strong>85 дипломных работ</strong> с качественной структурой, исследовательской глубиной и сдачей в срок.',
+                    a1Title: '1 000+ выполненных работ по IT-направлениям',
+                    a1Body: 'Мы помогли выполнить более <strong>420 рефератов</strong>, <strong>330 лабораторных</strong>, <strong>190 курсовых проектов</strong> и <strong>85 дипломных работ</strong> по IT-дисциплинам с качественной структурой, исследовательской глубиной и сдачей в срок.',
                     a1Link: 'Обсудить вашу задачу →',
                     a2Title: '95% работ получили высший балл',
                     a2Body: '<strong>95%</strong> сданных работ получили оценку <strong>5 / A-level</strong>. Наш подход основан на четкой методологии, правильном оформлении и материалах, готовых к уверенной защите.'
+                },
+                testimonials: {
+                    title: 'Отзывы студентов',
+                    subtitle: 'Отзывы студентов, которым мы помогали с IT-курсовыми, лабораторными и дипломными проектами.',
+                    items: [
+                        {
+                            name: 'Алина Соколова',
+                            university: 'Университет ИТМО',
+                            text: 'Структура диплома стала намного понятнее, а практическая часть по backend-архитектуре наконец выглядела цельно и уверенно для защиты.'
+                        },
+                        {
+                            name: 'Илья Морозов',
+                            university: 'МГУ им. Ломоносова',
+                            text: 'Мне помогли поэтапно собрать курсовой проект по веб-разработке: от требований до демо, при этом не потерялась техническая глубина.'
+                        },
+                        {
+                            name: 'Виктория Белова',
+                            university: 'Санкт-Петербургский государственный университет',
+                            text: 'Лабораторные по базам данных объяснили простым языком, а итоговый отчет получился аккуратным, точным и удобным для сдачи.'
+                        },
+                        {
+                            name: 'Тимур Абдуллаев',
+                            university: 'РУДН',
+                            text: 'Больше всего понравился баланс между помощью по коду и объяснениями. Я действительно понял, как работает решение, а не просто отправил файлы.'
+                        },
+                        {
+                            name: 'Екатерина Орлова',
+                            university: 'Казанский федеральный университет',
+                            text: 'Курсовой проект по мобильной разработке хорошо дотянули: архитектура, скриншоты, пояснения и оформление стали соответствовать требованиям кафедры.'
+                        },
+                        {
+                            name: 'Даниил Киселев',
+                            university: 'СКФУ',
+                            text: 'Слабые места в практической работе по API нашли очень быстро и помогли превратить сырой черновик в сильную академическую сдачу.'
+                        },
+                        {
+                            name: 'Мария Жукова',
+                            university: 'Воронежский государственный университет',
+                            text: 'Обратная связь была подробной и спокойной. Особенно ценной оказалась помощь с диаграммами, логикой интерфейса и финальной презентацией.'
+                        },
+                        {
+                            name: 'Никита Лебедев',
+                            university: 'Волгоградский государственный университет',
+                            text: 'В дипломном проекте по программной инженерии усилили обоснование решений и визуальную часть, и работа стала выглядеть заметно сильнее.'
+                        },
+                        {
+                            name: 'София Громова',
+                            university: 'Белгородский государственный университет',
+                            text: 'После доработок отчет по проекту информационной системы выглядел намного профессиональнее, особенно разделы анализа и реализации.'
+                        },
+                        {
+                            name: 'Артем Карпов',
+                            university: 'КБГУ',
+                            text: 'Курсовая по frontend стала гораздо убедительнее после разбора интерфейса и переработанного объяснения структуры компонентов.'
+                        },
+                        {
+                            name: 'Полина Назарова',
+                            university: 'Кубанский государственный университет',
+                            text: 'Помогли связать практическую часть, комментарии к коду и документацию так, что задание по machine learning наконец стало целостным.'
+                        },
+                        {
+                            name: 'Руслан Темирханов',
+                            university: 'КЧГУ',
+                            text: 'Поддержка по лабораторным по программированию сильно сэкономила время. Все оформили структурно и под стандарты нашей кафедры.'
+                        }
+                    ]
                 },
                 typewriter: [
                     'Рефераты.',
                     'Дипломные работы.',
                     'Лабораторные работы.',
                     'Курсовые проекты.',
-                    'И многое другое.'
+                    'Только IT-направления.'
                 ]
             },
             business: {
@@ -838,9 +970,9 @@
             students: {
                 meta: {
                     title: 'Talyplar üçin | BaDi Systems',
-                    description: 'Talyplar üçin goldaw: referatlar, diplomlar, laborator we kurs işleri.',
+                    description: 'Talyplar üçin diňe IT ugurlary boýunça goldaw: referatlar, diplomlar, laborator we kurs işleri.',
                     ogTitle: 'Talyplar üçin | BaDi Systems',
-                    ogDescription: 'Talyplara goldaw: referatlar, diplomlar, laborator, kurs işleri we başgalar.'
+                    ogDescription: 'Talyplara diňe IT ugurlary boýunça goldaw: referatlar, diplomlar, laborator we kurs işleri.'
                 },
                 nav: {
                     home: 'Baş sahypa',
@@ -852,11 +984,11 @@
                 },
                 hero: {
                     title: 'Talyplar üçin',
-                    subtitle: 'Okuw işleri üçin goldaw we ýolbeletlik'
+                    subtitle: 'Diňe IT ugurlary boýunça okuw işleri üçin goldaw we ýolbeletlik'
                 },
                 services: {
                     title: 'Hyzmatlar',
-                    subtitle: 'Talyplar üçin hyzmatlar we bahalar',
+                    subtitle: 'IT ugurlary boýunça talyp hyzmatlary we bahalar',
                     thesis: 'Diplom işi',
                     thesisPrice: '5 000 ₽-dan',
                     coursework: 'Kurs proýekti',
@@ -874,7 +1006,7 @@
                 },
                 universities: {
                     title: 'Biz bilen işleşýän talyplaryň uniwersitetleri',
-                    subtitle: 'Biz Russiýanyň öňdebaryjy uniwersitetleriniň talyplaryna okuw proýektleri we kurs işleri boýunça kömek etdik.',
+                    subtitle: 'Biz Russiýanyň öňdebaryjy uniwersitetleriniň talyplaryna IT ugurlary boýunça okuw proýektleri we işler babatda kömek etdik.',
                     names: [
                         'AGU',
                         'Belgorod Döwlet Uniwersiteti',
@@ -894,18 +1026,84 @@
                 achievements: {
                     title: 'Üstünlikler',
                     subtitle: 'Hakyky ölçegler bilen tassyklanan akademiki netijeler',
-                    a1Title: '1 000+ talyp işi ýerine ýetirildi',
-                    a1Body: 'Biz <strong>420+ referat</strong>, <strong>330+ laborator iş</strong>, <strong>190+ kurs proýekti</strong> we <strong>85+ diplom işi</strong> boýunça ýokary hilli kömek etdik.',
+                    a1Title: 'IT ugurlary boýunça 1 000+ talyp işi ýerine ýetirildi',
+                    a1Body: 'Biz <strong>420+ referat</strong>, <strong>330+ laborator iş</strong>, <strong>190+ kurs proýekti</strong> we <strong>85+ diplom işi</strong> boýunça diňe IT ugurlarynda ýokary hilli kömek etdik.',
                     a1Link: 'Ýumuşyňyzy ara alyp maslahatlaşyň →',
                     a2Title: '95% ýokary baha görkezijisi',
                     a2Body: 'Tabşyrylan işleriň <strong>95%-i</strong> <strong>5 / A derejesinde</strong> bahalandy. Biziň usulymyz düşnükli metodologiýa, dogry format we goraga taýyn materiallara esaslanýar.'
+                },
+                testimonials: {
+                    title: 'Talyplaryň seslenmeleri',
+                    subtitle: 'IT kurs işleri, laborator we diplom proýektleri boýunça goldaw alan talyplaryň seslenmeleri.',
+                    items: [
+                        {
+                            name: 'Алина Соколова',
+                            university: 'Университет ИТМО',
+                            text: 'Структура диплома стала намного понятнее, а практическая часть по backend-архитектуре наконец выглядела цельно и уверенно для защиты.'
+                        },
+                        {
+                            name: 'Илья Морозов',
+                            university: 'МГУ им. Ломоносова',
+                            text: 'Мне помогли поэтапно собрать курсовой проект по веб-разработке: от требований до демо, при этом не потерялась техническая глубина.'
+                        },
+                        {
+                            name: 'Виктория Белова',
+                            university: 'Санкт-Петербургский государственный университет',
+                            text: 'Лабораторные по базам данных объяснили простым языком, а итоговый отчет получился аккуратным, точным и удобным для сдачи.'
+                        },
+                        {
+                            name: 'Тимур Абдуллаев',
+                            university: 'РУДН',
+                            text: 'Больше всего понравился баланс между помощью по коду и объяснениями. Я действительно понял, как работает решение, а не просто отправил файлы.'
+                        },
+                        {
+                            name: 'Екатерина Орлова',
+                            university: 'Казанский федеральный университет',
+                            text: 'Курсовой проект по мобильной разработке хорошо дотянули: архитектура, скриншоты, пояснения и оформление стали соответствовать требованиям кафедры.'
+                        },
+                        {
+                            name: 'Даниил Киселев',
+                            university: 'СКФУ',
+                            text: 'Слабые места в практической работе по API нашли очень быстро и помогли превратить сырой черновик в сильную академическую сдачу.'
+                        },
+                        {
+                            name: 'Мария Жукова',
+                            university: 'Воронежский государственный университет',
+                            text: 'Обратная связь была подробной и спокойной. Особенно ценной оказалась помощь с диаграммами, логикой интерфейса и финальной презентацией.'
+                        },
+                        {
+                            name: 'Никита Лебедев',
+                            university: 'Волгоградский государственный университет',
+                            text: 'В дипломном проекте по программной инженерии усилили обоснование решений и визуальную часть, и работа стала выглядеть заметно сильнее.'
+                        },
+                        {
+                            name: 'София Громова',
+                            university: 'Белгородский государственный университет',
+                            text: 'После доработок отчет по проекту информационной системы выглядел намного профессиональнее, особенно разделы анализа и реализации.'
+                        },
+                        {
+                            name: 'Артем Карпов',
+                            university: 'КБГУ',
+                            text: 'Курсовая по frontend стала гораздо убедительнее после разбора интерфейса и переработанного объяснения структуры компонентов.'
+                        },
+                        {
+                            name: 'Полина Назарова',
+                            university: 'Кубанский государственный университет',
+                            text: 'Помогли связать практическую часть, комментарии к коду и документацию так, что задание по machine learning наконец стало целостным.'
+                        },
+                        {
+                            name: 'Руслан Темирханов',
+                            university: 'КЧГУ',
+                            text: 'Поддержка по лабораторным по программированию сильно сэкономила время. Все оформили структурно и под стандарты нашей кафедры.'
+                        }
+                    ]
                 },
                 typewriter: [
                     'Referatlar.',
                     'Diplom işleri.',
                     'Laborator işler.',
                     'Kurs proýektleri.',
-                    'We başga-da köp zat.'
+                    'Diňe IT ugurlary.'
                 ]
             },
             business: {
@@ -1036,6 +1234,8 @@
                 { selector: '#achievements .achievement-card:nth-of-type(1) .achievement-link', key: 'students.achievements.a1Link' },
                 { selector: '#achievements .achievement-card:nth-of-type(2) h3', key: 'students.achievements.a2Title' },
                 { selector: '#achievements .achievement-card:nth-of-type(2) .achievement-body p', key: 'students.achievements.a2Body', type: 'html' },
+                { selector: '#testimonials h2', key: 'students.testimonials.title' },
+                { selector: '#testimonials .section-subtitle', key: 'students.testimonials.subtitle' },
                 { selector: '#contact .contact-heading', key: 'common.contact.heading' },
                 { selector: '#contact label[for="name"]', key: 'common.contact.nameLabel' },
                 { selector: '#contact label[for="email"]', key: 'common.contact.emailLabel' },
@@ -1622,6 +1822,62 @@
         });
     };
 
+    const applyTestimonials = (pageName) => {
+        if (pageName !== 'students') return;
+
+        const track = document.querySelector('#testimonials .testimonials-track');
+        if (!track) return;
+
+        const localizedItems = t('students.testimonials.items');
+        if (!Array.isArray(localizedItems) || localizedItems.length === 0) {
+            track.replaceChildren();
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        const duplicatedItems = localizedItems.concat(localizedItems);
+
+        duplicatedItems.forEach((item) => {
+            const card = document.createElement('article');
+            card.className = 'testimonial-card';
+
+            const header = document.createElement('div');
+            header.className = 'testimonial-header';
+
+            const avatar = document.createElement('div');
+            avatar.className = 'testimonial-avatar';
+            avatar.setAttribute('aria-hidden', 'true');
+
+            const avatarIcon = document.createElement('i');
+            avatarIcon.className = 'fa-solid fa-user';
+            avatar.append(avatarIcon);
+
+            const meta = document.createElement('div');
+            meta.className = 'testimonial-meta';
+
+            const name = document.createElement('h3');
+            name.textContent = item.name || '';
+
+            const university = document.createElement('p');
+            university.textContent = item.university || '';
+
+            meta.append(name, university);
+            header.append(avatar, meta);
+
+            const body = document.createElement('div');
+            body.className = 'testimonial-body';
+
+            const quote = document.createElement('p');
+            quote.textContent = item.text || '';
+            body.append(quote);
+
+            card.append(header, body);
+            fragment.append(card);
+        });
+
+        track.replaceChildren(fragment);
+    };
+
     const applyResumeDownload = (pageName) => {
         if (pageName !== 'index') return;
 
@@ -1701,6 +1957,7 @@
         applyBusinessProjectCards(pageName);
         applyBusinessTimeline(pageName);
         applyUniversityNames(pageName);
+        applyTestimonials(pageName);
         applyContactFallback();
         applySwitcherState();
     };
