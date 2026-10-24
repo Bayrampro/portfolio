@@ -1,67 +1,52 @@
-# BaDi Systems — Portfolio Website
+# Bayram Annagurbanov — Portfolio
 
-Multilingual portfolio website for **BaDi Systems** with separate tracks for:
-- Business services and case studies
-- Student support services
+Personal portfolio built with Next.js, React, TypeScript, Three.js, and React Three Fiber. Includes Russian and English content, interactive 3D scenes, project details, and CV downloads.
 
-## Pages
+Live site: [byprogger-portfolio.vercel.app](https://byprogger-portfolio.vercel.app/).
 
-- `index.html` — main landing page
-- `for-business.html` — business-focused page with project case studies
-- `for-students.html` — student services and achievements
+## Local development
 
-## Localization
+Run commands from the repository root:
 
-The site supports 3 languages:
-- English (`EN`)
-- Russian (`RU`)
-- Turkmen (`TK`)
-
-Localization is implemented in `i18n.js` with:
-- language switcher in navbar
-- per-page translations
-- localized dynamic content (typewriter text, service prices, project cards, form labels/messages)
-- persisted language in `localStorage`
-
-## Tech
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- GSAP (animations)
-- Vanilla Tilt
-
-## Run locally
-
-This is a static site. Open `index.html` directly or run any local static server from the project root.
-
-Example:
-
-```bash
-python3 -m http.server 8080
+```sh
+npm ci
+npm run dev
 ```
 
-Then open `http://localhost:8080`.
+Open http://localhost:3000.
 
-## SEO setup
+## Checks and production build
 
-The project includes:
-- canonical and hreflang tags for all pages
-- Open Graph and Twitter meta tags
-- JSON-LD structured data (`Organization`, `WebSite`, `WebPage`)
-- `robots.txt` at the project root
-
-To generate production `sitemap.xml` and `robots.txt` with your real domain:
-
-```bash
-bash scripts/generate-seo-files.sh https://your-domain.example
+```sh
+npm run lint
+npx tsc --noEmit
+node --test tests/*.test.cjs
+npm run build
+npm start
 ```
 
-For GitHub Actions deploy, set repository secret or variable `SITE_URL` (for example `https://your-domain.example`).  
-Then the deploy workflow will auto-generate SEO files before rsync.
+## Deploy to Vercel
 
-## Contacts
+Import this repository and use:
 
-- Bayram Annagurbanov
-- GitHub: [https://github.com/Bayrampro](https://github.com/Bayrampro)
-- Telegram: [https://t.me/byprogger](https://t.me/byprogger)
+- Root Directory: `./` (repository root)
+- Framework Preset: Next.js
+- Build Command: `npm run build` (default)
+- Output Directory: framework default
+- Install Command: automatically detected from `package-lock.json`
+
+The app does not currently require environment variables. Files in `public/`, including models, project images, domain verification, and CV PDFs, are served with the site.
+
+The Dockerfile remains available for Node.js container deployments; Vercel uses the Next.js project directly.
+
+## Project layout
+
+- `app/`: page, root layout, and global styles
+- `components/`: interface and 3D components
+- `lib/`: translations, project experience, skills, and shared logic
+- `public/`: deployable assets; final CVs are in `public/resumes/`
+- `tests/`: active-section behavior tests
+- `examples/avatar/`: avatar verification scripts
+- `licenses/` and `LICENSE`: third-party notices and original project license
+
+Local avatar authoring files in `avatar-work/` are preserved and excluded from Git and Docker builds.
